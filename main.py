@@ -6,7 +6,7 @@ import sys
 from time import sleep
 from update import status
 
-VERSION = "0.03"
+VERSION = "0.04"
 KW_RESTART = 'restart'
 KW_NO_UPDATE_CHECK = 'no_update'
 KW_DO_UPDATE = "update"
