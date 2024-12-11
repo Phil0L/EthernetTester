@@ -1,7 +1,15 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+
+import subprocess
+
 
 def main():
-    pass
+    update()
+
+
+def update():
+    print("Updating...")
+    subprocess.call(["python", "update.py"])
 
 
 if __name__ == "__main__":
