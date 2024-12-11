@@ -8,6 +8,7 @@ def pull():
     g = git.cmd.Git(git_dir)
     msg = g.pull()
     print(msg)
+    print("Updater: Process done.")
 
 
 if __name__ == '__main__':

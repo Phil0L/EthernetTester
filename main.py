@@ -10,6 +10,7 @@ def main():
 def update():
     print("Updating...")
     subprocess.call(["python", "update.py"])
+    print("Updater called")
 
 
 if __name__ == "__main__":
