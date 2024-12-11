@@ -3,22 +3,43 @@
 import subprocess
 import os
 import sys
+from time import sleep
+from update import status
 
-VERSION = "0.01"
+VERSION = "0.02"
+KW_RESTART = 'restart'
+KW_NO_UPDATE_CHECK = 'no_update'
+KW_DO_UPDATE = "update"
+KW_UP_TO_DATE = 3
 
 
 def main():
     print("Ethernet tester successfully started.")
     print(f"Version: {VERSION}")
-    update()
+
+
+def update_check():
+    print("Checking for updates...")
+    update_count = status()
+    if update_count == 0:
+        print("Already up to date.")
+    else:
+        print(f"{update_count} updates available.")
+    return update_count
 
 
 def update():
-    print("Updating...")
-    subprocess.call(["python", "update.py"], shell=True)
+    code = subprocess.call(["python", "update.py"], shell=False)
+    if code == KW_UP_TO_DATE:
+        return
     print("Restarting...")
-    os.execv(sys.executable, ['python'] + sys.argv)
+    os.execv(sys.executable, ['python'] + sys.argv + [KW_RESTART, KW_NO_UPDATE_CHECK])
 
 
 if __name__ == "__main__":
     main()
+    if KW_NO_UPDATE_CHECK not in sys.argv:
+        update_check()
+    if KW_DO_UPDATE in sys.argv:
+        update()
+
