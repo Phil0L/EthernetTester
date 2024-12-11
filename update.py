@@ -19,8 +19,10 @@ def status():
     git_dir = "."
     repo = Repo(git_dir)
     repo.remotes.origin.fetch()
-    commits_behind = repo.iter_commits('master..origin/main')
+    # count = repo.git.rev_list('--count', 'HEAD')
+    commits_behind = repo.iter_commits('main..origin/main')
     count = sum(1 for _ in commits_behind)
+    # list(repo.iter_commits('BRANCH@{u}..BRANCH'))
     return count
 
 
