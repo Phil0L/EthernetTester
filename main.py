@@ -19,14 +19,12 @@ def pre_update():
 
 
 def start():
-    print("started.")
+    print("Started.")
 
 
 def update_check():
     update_count = status()
-    if update_count == 0:
-        print("Already up to date.")
-    else:
+    if update_count > 0:
         print(f"{update_count} updates available.")
     return update_count
 
