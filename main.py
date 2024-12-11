@@ -6,7 +6,7 @@ import sys
 from time import sleep
 from update import status
 
-VERSION = "0.05"
+VERSION = "0.1"
 KW_RESTART = 'restart'
 KW_NO_UPDATE_CHECK = 'no_update'
 KW_DO_UPDATE = "update"
@@ -25,7 +25,7 @@ def start():
 def update_check():
     update_count = status()
     if update_count > 0:
-        print(f"{update_count} updates available.")
+        print(f"{update_count} updates available. Run 'python main.py update' to update")
     return update_count
 
 
