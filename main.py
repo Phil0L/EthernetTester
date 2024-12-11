@@ -6,7 +6,7 @@ import sys
 from time import sleep
 from update import status
 
-VERSION = "0.02"
+VERSION = "0.03"
 KW_RESTART = 'restart'
 KW_NO_UPDATE_CHECK = 'no_update'
 KW_DO_UPDATE = "update"
@@ -34,12 +34,14 @@ def update():
         return
     print("Restarting...")
     os.execv(sys.executable, ['python'] + sys.argv + [KW_RESTART, KW_NO_UPDATE_CHECK])
+    exit(0)
 
 
 if __name__ == "__main__":
-    main()
     if KW_NO_UPDATE_CHECK not in sys.argv:
         update_check()
     if KW_DO_UPDATE in sys.argv:
         update()
+    main()
+    sleep(5)
 
