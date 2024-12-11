@@ -6,20 +6,23 @@ import sys
 from time import sleep
 from update import status
 
-VERSION = "0.04"
+VERSION = "0.05"
 KW_RESTART = 'restart'
 KW_NO_UPDATE_CHECK = 'no_update'
 KW_DO_UPDATE = "update"
 KW_UP_TO_DATE = 3
 
 
-def main():
-    print("Ethernet tester successfully started.")
+def pre_update():
+    print("Ethernet tester.")
     print(f"Version: {VERSION}")
 
 
+def start():
+    print("started.")
+
+
 def update_check():
-    print("Checking for updates...")
     update_count = status()
     if update_count == 0:
         print("Already up to date.")
@@ -38,10 +41,11 @@ def update():
 
 
 if __name__ == "__main__":
-    if KW_NO_UPDATE_CHECK not in sys.argv:
-        update_check()
+    pre_update()
     if KW_DO_UPDATE in sys.argv:
         update()
-    main()
+    elif KW_NO_UPDATE_CHECK not in sys.argv:
+        update_check()
+    start()
     sleep(5)
 
