@@ -1,16 +1,10 @@
 #!/usr/bin/env python
 
-import subprocess
-import os
 import sys
 from time import sleep
-from update import status
+from update import update_check, KW_DO_UPDATE, update, KW_NO_UPDATE_CHECK
 
-VERSION = "0.1"
-KW_RESTART = 'restart'
-KW_NO_UPDATE_CHECK = 'no_update'
-KW_DO_UPDATE = "update"
-KW_UP_TO_DATE = 3
+VERSION = "0.1.1"
 
 
 def pre_update():
@@ -19,23 +13,7 @@ def pre_update():
 
 
 def start():
-    print("Started.")
-
-
-def update_check():
-    update_count = status()
-    if update_count > 0:
-        print(f"{update_count} updates available. Run 'python main.py update' to update")
-    return update_count
-
-
-def update():
-    code = subprocess.call(["python", "update.py"], shell=False)
-    if code == KW_UP_TO_DATE:
-        return
-    print("Restarting...")
-    os.execv(sys.executable, ['python'] + sys.argv + [KW_RESTART, KW_NO_UPDATE_CHECK])
-    exit(0)
+    print("Started. Ctrl+C to quit.")
 
 
 if __name__ == "__main__":
@@ -46,4 +24,3 @@ if __name__ == "__main__":
         update_check()
     start()
     sleep(5)
-
