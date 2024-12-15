@@ -12,8 +12,8 @@ import pygame
 import select
 import time
 
-# Very important: the exact pixel size of the TFT screen must be known so we can build graphics at this exact format
-surfaceSize = (320, 240)
+# Very important: the exact pixel size of the TFT screen must be known, so we can build graphics at this exact format
+surfaceSize = (800, 480)
 
 # Note that we don't instantiate any display!
 pygame.init()
@@ -87,7 +87,7 @@ tftAbsDelta = (abs(tftEnd[0] - tftOrig[0]), abs(tftEnd[1] - tftOrig[1]))
 
 # Here we convert the evdev "hardware" touch coordinates into pygame surface pixel coordinates
 def get_pixels_from_coordinates(coords):
-    # TODO check divide by 0!
+    # TOD O check divide by 0!
     if tftDelta[0] < 0:
         x = float(tftAbsDelta[0] - coords[0] + tftEnd[0]) / float(tftAbsDelta[0]) * float(surfaceSize[0])
     else:
@@ -109,7 +109,7 @@ def printEvent(ev):
 
 # This loop allows us to write red dots on the screen where we touch it
 #while True:
-    # TODO get the right ecodes instead of int
+    # TOD O get the right ecodes instead of int
     #r, w, x = select.select([touch], [], [])
     #for event in touch.read():
     #    if event.type == evdev.ecodes.EV_ABS:
