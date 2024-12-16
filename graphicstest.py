@@ -112,6 +112,7 @@ while True:
     # TOD O get the right ecodes instead of int
     r, w, x = select.select([touch], [], [])
     for event in touch.read():
+        X, Y = 0, 0
         if event.type == evdev.ecodes.EV_ABS:
             if event.code == 1:
                 X = event.value
@@ -120,8 +121,8 @@ while True:
         elif event.type == evdev.ecodes.EV_KEY:
             if event.code == 330 and event.value == 1:
                 printEvent(event)
+                print("TFT: {0}:{1}".format(X, Y))
                 p = get_pixels_from_coordinates((X, Y))
                 print("TFT: {0}:{1} | Pixels: {2}:{3}".format(X, Y, p[0], p[1]))
                 pygame.draw.circle(lcd, (255, 0, 0), p, 2, 2)
                 refresh()
-
