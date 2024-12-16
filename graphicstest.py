@@ -109,27 +109,38 @@ def printEvent(ev):
     print("Code: {0}".format(ev.code))
 
 
-def parse_event(touch_event):
-    x, y = None, None
-    down = False
-    for event in touch_event:
-        printEvent(event)
-        if event.type == evdev.ecodes.EV_ABS:
-            if event.code == 1:
-                x = event.value
-            elif event.code == 0:
-                y = event.value
-        elif event.type == evdev.ecodes.EV_KEY:
-            if event.code == 330 and event.value == 1:
-                down = True
-    if down and x is not None and y is not None:
-        p = get_pixels_from_coordinates((x, y))
-        print("TFT: {0}:{1} | Pixels: {2}:{3}".format(x, y, p[0], p[1]))
-        pygame.draw.circle(lcd, (255, 0, 0), p, 2, 2)
+touch_down_timestamp = 0
+touch_x_timestamp = 0
+touch_y_timestamp = 0
+touch_x_value = 0
+touch_y_value = 0
+
+
+def parse_event(event):
+    global touch_down_timestamp
+    global touch_x_timestamp
+    global touch_y_timestamp
+    global touch_x_value
+    global touch_y_value
+
+    #printEvent(event)
+    if event.type == evdev.ecodes.EV_ABS:
+        if event.code == 1:
+            touch_x_value = event.value
+            touch_x_timestamp = event.timestamp()
+        elif event.code == 0:
+            touch_y_value = event.value
+            touch_y_timestamp = event.timestamp()
+    elif event.type == evdev.ecodes.EV_KEY:
+        if event.code == 330 and event.value == 1:
+            touch_down_timestamp = event.timestamp()
+    if touch_down_timestamp == touch_x_timestamp == touch_y_timestamp:
+        print(f"Touch at: {touch_x_value}, {touch_y_value}")
 
 
 # This loop allows us to write red dots on the screen where we touch it
 while True:
     # TOD O get the right e-codes instead of int
     # r, w, x = select.select([touch], [], [])
-    parse_event(touch.read)
+    for ev in touch.read():
+        parse_event(ev)
