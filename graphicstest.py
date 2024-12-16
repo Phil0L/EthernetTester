@@ -78,8 +78,10 @@ touch = evdev.InputDevice('/dev/input/event0')
 # We make sure the events from the touchscreen will be handled only by this program
 # (so the mouse pointer won't move on X when we touch the TFT screen)
 touch.grab()
+
+
 # Prints some info on how evdev sees our input device
-#print(touch)
+# print(touch)
 
 
 # Even more info for curious people
@@ -107,23 +109,27 @@ def printEvent(ev):
     print("Code: {0}".format(ev.code))
 
 
-# This loop allows us to write red dots on the screen where we touch it
-while True:
-    # TOD O get the right e-codes instead of int
-    r, w, x = select.select([touch], [], [])
-    for event in touch.read():
-        X, Y = 0, 0
+def parse_event(touch_event):
+    x, y = None, None
+    down = False
+    for event in touch_event:
         printEvent(event)
         if event.type == evdev.ecodes.EV_ABS:
             if event.code == 1:
-                X = event.value
+                x = event.value
             elif event.code == 0:
-                Y = event.value
+                y = event.value
         elif event.type == evdev.ecodes.EV_KEY:
             if event.code == 330 and event.value == 1:
+                down = True
+    if down and x is not None and y is not None:
+        p = get_pixels_from_coordinates((x, y))
+        print("TFT: {0}:{1} | Pixels: {2}:{3}".format(x, y, p[0], p[1]))
+        pygame.draw.circle(lcd, (255, 0, 0), p, 2, 2)
 
-                #print("TFT: {0}:{1}".format(X, Y))
-                p = get_pixels_from_coordinates((X, Y))
-                #("TFT: {0}:{1} | Pixels: {2}:{3}".format(X, Y, p[0], p[1]))
-                pygame.draw.circle(lcd, (255, 0, 0), p, 2, 2)
-                refresh()
+
+# This loop allows us to write red dots on the screen where we touch it
+while True:
+    # TOD O get the right e-codes instead of int
+    # r, w, x = select.select([touch], [], [])
+    parse_event(touch.read)
