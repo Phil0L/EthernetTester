@@ -3,11 +3,11 @@
 ##
 # Prerequisites:
 # A Touchscreen properly installed on your system:
-# - a device to output to it, e.g. /dev/fb1
-# - a device to get input from it, e.g. /dev/input/touchscreen
+# - a device to output to it, e.g. /dev/fb0
+# - a device to get input from it, e.g. /dev/input/event0
 ##
 
-# import evdev
+import evdev
 import pygame
 import select
 import time
@@ -20,7 +20,7 @@ pygame.init()
 
 # The pygame surface we are going to draw onto.
 # /!\ It must be the exact same size of the target display /!\
-lcd = pygame.Surface(surfaceSize)
+lcd = pygame.Surface(surfaceSize, depth=16)
 
 
 # This is the important bit
@@ -31,7 +31,7 @@ def refresh():
     # According to the TFT screen specs, it supports only 16bits pixels depth Pygame surfaces use 24bits pixels depth
     # by default, but the surface itself provides a very handy method to convert it. once converted, we write the
     # full byte buffer of the pygame surface into the TFT screen framebuffer like we would in a plain file:
-    f.write(lcd.convert(16, 0).get_buffer())
+    f.write(lcd.get_buffer())
     # We can then close our access to the framebuffer
     f.close()
     time.sleep(0.1)
@@ -42,7 +42,7 @@ def refresh():
 
 # Here we just blink the screen background in a few colors with the "Hello World!" text
 pygame.font.init()
-defaultFont = pygame.font.SysFont(None, 30)
+defaultFont = pygame.font.SysFont(pygame.font.get_default_font(), 30)
 
 lcd.fill((255, 0, 0))
 lcd.blit(defaultFont.render("Hello World!", False, (0, 0, 0)), (0, 0))
@@ -56,8 +56,8 @@ lcd.fill((0, 0, 255))
 lcd.blit(defaultFont.render("Hello World!", False, (0, 0, 0)), (0, 0))
 refresh()
 
-lcd.fill((128, 128, 128))
-lcd.blit(defaultFont.render("Hello World!", False, (0, 0, 0)), (0, 0))
+lcd.fill((0, 0, 0))
+lcd.blit(defaultFont.render("Hello World!", False, (255, 255, 255)), (0, 0))
 refresh()
 
 ##
@@ -73,13 +73,13 @@ tftAbsDelta = (abs(tftEnd[0] - tftOrig[0]), abs(tftEnd[1] - tftOrig[1]))
 
 # We use evdev to read events from our touchscreen
 # (The device must exist and be properly installed for this to work)
-#touch = evdev.InputDevice('/dev/input/touchscreen')
+touch = evdev.InputDevice('/dev/input/event0')
 
 # We make sure the events from the touchscreen will be handled only by this program
 # (so the mouse pointer won't move on X when we touch the TFT screen)
-#touch.grab()
+touch.grab()
 # Prints some info on how evdev sees our input device
-#print(touch)
+print(touch)
 
 
 # Even more info for curious people
@@ -101,27 +101,27 @@ def get_pixels_from_coordinates(coords):
 
 # Was useful to see what pieces I would need from the evdev events
 def printEvent(ev):
-    #print(evdev.categorize(ev))
+    print(evdev.categorize(ev))
     print("Value: {0}".format(ev.value))
     print("Type: {0}".format(ev.type))
     print("Code: {0}".format(ev.code))
 
 
 # This loop allows us to write red dots on the screen where we touch it
-#while True:
+while True:
     # TOD O get the right ecodes instead of int
-    #r, w, x = select.select([touch], [], [])
-    #for event in touch.read():
-    #    if event.type == evdev.ecodes.EV_ABS:
-    #        if event.code == 1:
-    #            X = event.value
-    #        elif event.code == 0:
-    #            Y = event.value
-    #    elif event.type == evdev.ecodes.EV_KEY:
-    #        if event.code == 330 and event.value == 1:
-    #            printEvent(event)
-    #            p = get_pixels_from_coordinates((X, Y))
-    #            print("TFT: {0}:{1} | Pixels: {2}:{3}".format(X, Y, p[0], p[1]))
-    #            pygame.draw.circle(lcd, (255, 0, 0), p, 2, 2)
-    #            refresh()
+    r, w, x = select.select([touch], [], [])
+    for event in touch.read():
+        if event.type == evdev.ecodes.EV_ABS:
+            if event.code == 1:
+                X = event.value
+            elif event.code == 0:
+                Y = event.value
+        elif event.type == evdev.ecodes.EV_KEY:
+            if event.code == 330 and event.value == 1:
+                printEvent(event)
+                p = get_pixels_from_coordinates((X, Y))
+                print("TFT: {0}:{1} | Pixels: {2}:{3}".format(X, Y, p[0], p[1]))
+                pygame.draw.circle(lcd, (255, 0, 0), p, 2, 2)
+                refresh()
 
