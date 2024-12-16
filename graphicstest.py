@@ -131,9 +131,15 @@ def parse_event(event):
         elif event.code == 0:
             touch_y_value = event.value
             touch_y_timestamp = event.timestamp()
+        else:
+            return
     elif event.type == evdev.ecodes.EV_KEY:
         if event.code == 330 and event.value == 1:
             touch_down_timestamp = event.timestamp()
+        else:
+            return
+    else:
+        return
     if touch_down_timestamp == touch_x_timestamp == touch_y_timestamp:
         print(f"Touch at: {touch_x_value}, {touch_y_value}")
 
