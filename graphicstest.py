@@ -141,7 +141,10 @@ def parse_event(event):
     else:
         return
     if touch_down_timestamp == touch_x_timestamp == touch_y_timestamp:
-        print(f"Touch at: {touch_x_value}, {touch_y_value}")
+        p = get_pixels_from_coordinates((touch_x_value, touch_x_value))
+        print("TFT: {0}:{1} | Pixels: {2}:{3}".format(touch_x_value, touch_x_value, p[0], p[1]))
+        pygame.draw.circle(lcd, (255, 0, 0), p, 2, 2)
+        refresh()
 
 
 # This loop allows us to write red dots on the screen where we touch it
