@@ -25,7 +25,6 @@ def initialize():
     screen = pygame.display.set_mode(DISPLAY_SIZE, pygame.FULLSCREEN)
     pygame.font.init()
     font = pygame.font.SysFont(pygame.font.get_default_font(), 30)
-    screen.fill((100, 0, 0))
     draw()
 
     touch_thread = Thread(target=_touch_loop)
@@ -33,6 +32,7 @@ def initialize():
 
 
 def draw():
+    screen.fill((100, 0, 0))
     screen.blit(font.render("Ethernet tester v.1", False, (255, 255, 255)), (3, 3))
 
     pygame.display.update()

@@ -6,7 +6,7 @@ from time import sleep
 import display
 from update import update_check, KW_DO_UPDATE, update, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2"
+VERSION = "0.2.1"
 
 
 def pre_update():
@@ -19,6 +19,10 @@ def start():
     display.initialize()
 
 
+def loop():
+    display.draw()
+
+
 if __name__ == "__main__":
     pre_update()
     if KW_DO_UPDATE in sys.argv:
@@ -26,4 +30,5 @@ if __name__ == "__main__":
     elif KW_NO_UPDATE_CHECK not in sys.argv:
         update_check()
     start()
-    sleep(5)
+    while True:
+        loop()
