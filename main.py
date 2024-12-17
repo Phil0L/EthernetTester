@@ -35,6 +35,8 @@ def touched(x, y):
 if __name__ == "__main__":
     if KW_LOGFILE in sys.argv:
         print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
+        sys.stdout = open('log.txt', 'w')
+        sys.stderr = sys.stdout
     pre_update()
     if KW_DO_UPDATE in sys.argv:
         update()
