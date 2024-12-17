@@ -25,11 +25,7 @@ def start():
 
 def loop():
     display.draw(data)
-    touch.check_touch(data.touch, lambda x, y: touched(x, y))
-
-
-def touched(x, y):
-    print(f"Touch at: {x}|{y}")
+    touch.check_touch(data.touch)
 
 
 if __name__ == "__main__":

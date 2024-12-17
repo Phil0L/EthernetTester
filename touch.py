@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 import evdev
 from typing import Any
+
 import select
 
 DISPLAY_TOUCH = "/dev/input/event0"
 
 touch: Any
+touch_areas = []
 
 
 def initialize():
@@ -14,11 +16,11 @@ def initialize():
     touch.grab()
 
 
-def check_touch(touch_data, callback):
+def check_touch(touch_data):
     try:
         _read, _write, _execute = select.select([touch], [], [])
         for ev in touch.read():
-            _parse_event(ev, touch_data, lambda _x, _y: callback(_x, _y))
+            _parse_event(ev, touch_data, lambda _x, _y: _check_touch_area(_x, _y))
     except IOError:
         print("Error reading touch screen.")
 
@@ -42,3 +44,31 @@ def _parse_event(event, data, click_callback):
         return
     if data.touch_down_timestamp == data.touch_x_timestamp == data.touch_y_timestamp:
         click_callback(data.touch_x_value, data.touch_y_value)
+
+
+class TouchArea:
+    left = 0
+    top = 0
+    right = 0
+    bottom = 0
+    callback = None
+
+    def __init__(self, left, top, right, bottom, callback):
+        self.top = top
+        self.left = left
+        self.bottom = bottom
+        self.right = right
+        self.callback = callback
+
+    def is_inside(self, x, y):
+        return self.left < x < self.right and self.top < y < self.bottom
+
+    def execute(self):
+        if self.callback is not None:
+            self.callback()
+
+
+def _check_touch_area(x, y):
+    for touch_area in touch.touch_areas:
+        if touch_area.is_inside(x, y):
+            touch_area.execute()
