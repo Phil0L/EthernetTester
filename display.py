@@ -49,6 +49,6 @@ def _update_clicked():
 
 def _draw_update(data: Data):
     font.set_underline(True)
-    screen.blit(font.render("Update", False, WHITE), (TOP + 3, RIGHT - 50))
+    screen.blit(font.render("Update", False, WHITE), (TOP + 3, 200))
     touch.touch_areas.append(TouchArea(RIGHT - 50, TOP + 3, RIGHT - 3, TOP + 30, lambda _: _update_clicked()))
     font.set_underline(False)
