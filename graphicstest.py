@@ -79,7 +79,7 @@ if __name__ == "__main__":
     # Here we just blink the screen background in a few colors with the "Hello World!" text
     pygame.font.init()
     defaultFont = pygame.font.SysFont(pygame.font.get_default_font(), 30)
-    screen.fill((0, 0, 0))
+    screen.fill((100, 0, 0))
     screen.blit(defaultFont.render("Hello World!", False, (255, 255, 255)), (0, 0))
     # refresh()
 
@@ -105,7 +105,7 @@ if __name__ == "__main__" and "2" in sys.argv:
     os.putenv("DISPLAY", ":0")
     pygame.display.init()
 
-    screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+    screen = pygame.display.set_mode(DISPLAY_SIZE, pygame.FULLSCREEN)
     screen.fill((255, 0, 0))
     pygame.display.update()
     time.sleep(300)
