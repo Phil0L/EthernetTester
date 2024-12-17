@@ -122,7 +122,7 @@ if __name__ == "__main__" and "2" in sys.argv:
     print("Framebuffer size: %d x %d" % (size[0], size[1]))
     screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 
-if __name__ == "__main__" and "2" in sys.argv:
+if __name__ == "__main__" and "3" in sys.argv:
     pygame.display.init()
     pygame.init()
     print(pygame.display.Info())
