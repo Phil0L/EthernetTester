@@ -53,8 +53,9 @@ def parse_event(event, data):
     else:
         return
     if data.touch_down_timestamp == data.touch_x_timestamp == data.touch_y_timestamp:
-        print("touch at: {0}:{1}".format(data.touch_x_value, data.touch_x_value))
-        pygame.draw.circle(lcd, (255, 0, 0), [data.touch_y_value, data.touch_x_value], 10, 2)
+        print("touch at: {0}:{1}".format(data.touch_x_value, data.touch_y_value))
+        # TOD0 rewrite with lambda
+        pygame.draw.circle(screen, (255, 0, 0), [data.touch_y_value, data.touch_x_value], 10, 2)
         # refresh()
         pygame.display.update()
 
