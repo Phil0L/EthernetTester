@@ -69,6 +69,6 @@ class TouchArea:
 
 
 def _check_touch_area(x, y):
-    for touch_area in touch.touch_areas:
+    for touch_area in touch_areas:
         if touch_area.is_inside(x, y):
             touch_area.execute()

@@ -6,7 +6,7 @@ import touch
 from data import Data
 from update import update_check, KW_DO_UPDATE, update, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.3"
+VERSION = "0.2.4"
 KW_LOGFILE = "logfile"
 data = Data()
 
