@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 import datetime
 import sys
-from time import sleep
-
 import display
+import touch
 from data import Data
 from update import update_check, KW_DO_UPDATE, update, KW_NO_UPDATE_CHECK
 
@@ -21,11 +20,12 @@ def start():
     print("Started. Ctrl+C to quit.")
     data.version = VERSION
     display.initialize()
+    touch.initialize()
 
 
 def loop():
     display.draw(data)
-    display.check_touch(data.touch, lambda x, y: touched(x, y))
+    touch.check_touch(data.touch, lambda x, y: touched(x, y))
 
 
 def touched(x, y):
