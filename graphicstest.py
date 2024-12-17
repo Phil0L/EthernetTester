@@ -55,16 +55,23 @@ def parse_event(event, data):
     if data.touch_down_timestamp == data.touch_x_timestamp == data.touch_y_timestamp:
         print("touch at: {0}:{1}".format(data.touch_x_value, data.touch_x_value))
         pygame.draw.circle(lcd, (255, 0, 0), [data.touch_y_value, data.touch_x_value], 10, 2)
-        refresh()
+        # refresh()
 
 
-if __name__ == "__main__" and "1" in sys.argv:
+if __name__ == "__main__":
     # Note that we don't instantiate any display!
+    os.putenv("DISPLAY", ":0")
+    pygame.display.init()
     pygame.init()
+    screen = pygame.display.set_mode(DISPLAY_SIZE, pygame.FULLSCREEN)
+    # screen.fill((255, 0, 0))
+    # pygame.display.update()
+    # time.sleep(300)
+    # pygame.quit()
 
     # The pygame surface we are going to draw onto.
     # /!\ It must be the exact same size of the target display /!\
-    lcd = pygame.Surface(DISPLAY_SIZE, depth=16)
+    # lcd = pygame.Surface(DISPLAY_SIZE, depth=16)
 
     # Now we've got a function that can get the bytes from a pygame surface to the TFT framebuffer,
     # we can use the usual pygame primitives to draw on our surface before calling the refresh function.
@@ -72,9 +79,9 @@ if __name__ == "__main__" and "1" in sys.argv:
     # Here we just blink the screen background in a few colors with the "Hello World!" text
     pygame.font.init()
     defaultFont = pygame.font.SysFont(pygame.font.get_default_font(), 30)
-    lcd.fill((0, 0, 0))
-    lcd.blit(defaultFont.render("Hello World!", False, (255, 255, 255)), (0, 0))
-    refresh()
+    screen.fill((0, 0, 0))
+    screen.blit(defaultFont.render("Hello World!", False, (255, 255, 255)), (0, 0))
+    # refresh()
 
     # We use evdev to read events from our touchscreen
     # (The device must exist and be properly installed for this to work)
@@ -95,34 +102,9 @@ if __name__ == "__main__" and "1" in sys.argv:
 if __name__ == "__main__" and "2" in sys.argv:
     # Based on "Python GUI in Linux frame buffer"
     # http://www.karoltomala.com/blog/?p=679
-    # os.putenv("DISPLAY", ":0")
+    os.putenv("DISPLAY", ":0")
     pygame.display.init()
-    # disp_no = os.getenv("DISPLAY")
-    # if disp_no:
-    #     print("I'm running under X display = {0}".format(disp_no))
 
-    # Check which frame buffer drivers are available
-    # Start with fbcon since directfb hangs with composite output
-    # drivers = ['fbcon', 'directfb', 'svgalib', 'xvfb', 'x11']
-    # found = False
-
-    # for driver in drivers:
-    #     # Make sure that SDL_VIDEODRIVER is set
-    #     if not os.getenv('SDL_VIDEODRIVER'):
-    #         os.putenv('SDL_VIDEODRIVER', driver)
-    #     try:
-    #         pygame.display.init()
-    #     except pygame.error:
-    #         print('Driver: {0} failed.'.format(driver))
-    #         continue
-    #     found = True
-    #     break
-    #
-    # if not found:
-    #     raise Exception('No suitable video driver found!')
-
-    size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
-    print("Framebuffer size: %d x %d" % (size[0], size[1]))
     screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
     screen.fill((255, 0, 0))
     pygame.display.update()
