@@ -95,29 +95,31 @@ if __name__ == "__main__" and "1" in sys.argv:
 if __name__ == "__main__" and "2" in sys.argv:
     # Based on "Python GUI in Linux frame buffer"
     # http://www.karoltomala.com/blog/?p=679
-    disp_no = os.getenv("DISPLAY")
-    if disp_no:
-        print("I'm running under X display = {0}".format(disp_no))
+    os.putenv("DISPLAY", ":0")
+    pygame.display.init()
+    # disp_no = os.getenv("DISPLAY")
+    # if disp_no:
+    #     print("I'm running under X display = {0}".format(disp_no))
 
     # Check which frame buffer drivers are available
     # Start with fbcon since directfb hangs with composite output
-    drivers = ['fbcon', 'directfb', 'svgalib', 'xvfb', 'x11']
-    found = False
-    os.putenv("DISPLAY", ":0")
-    for driver in drivers:
-        # Make sure that SDL_VIDEODRIVER is set
-        if not os.getenv('SDL_VIDEODRIVER'):
-            os.putenv('SDL_VIDEODRIVER', driver)
-        try:
-            pygame.display.init()
-        except pygame.error:
-            print('Driver: {0} failed.'.format(driver))
-            continue
-        found = True
-        break
+    # drivers = ['fbcon', 'directfb', 'svgalib', 'xvfb', 'x11']
+    # found = False
 
-    if not found:
-        raise Exception('No suitable video driver found!')
+    # for driver in drivers:
+    #     # Make sure that SDL_VIDEODRIVER is set
+    #     if not os.getenv('SDL_VIDEODRIVER'):
+    #         os.putenv('SDL_VIDEODRIVER', driver)
+    #     try:
+    #         pygame.display.init()
+    #     except pygame.error:
+    #         print('Driver: {0} failed.'.format(driver))
+    #         continue
+    #     found = True
+    #     break
+    #
+    # if not found:
+    #     raise Exception('No suitable video driver found!')
 
     size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
     print("Framebuffer size: %d x %d" % (size[0], size[1]))
