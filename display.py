@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import os
+from typing import Any
 import evdev
-from threading import Thread
 
 import pygame
 from pygame import Surface
@@ -14,11 +14,13 @@ DISPLAY_TOUCH = "/dev/input/event0"
 
 screen: Surface
 font: Font
+touch: Any
 
 
 def initialize():
     global screen
     global font
+    global touch
     os.putenv("DISPLAY", ":0")
     pygame.display.init()
     pygame.init()
@@ -27,27 +29,25 @@ def initialize():
     font = pygame.font.SysFont(pygame.font.get_default_font(), 30)
     draw()
 
-    touch_thread = Thread(target=_touch_loop)
-    touch_thread.start()
+    touch = evdev.InputDevice(DISPLAY_TOUCH)
+    touch.grab()
 
 
 def draw():
+    global screen
+    global font
     screen.fill((100, 0, 0))
     screen.blit(font.render("Ethernet tester v.1", False, (255, 255, 255)), (3, 3))
 
     pygame.display.update()
 
 
-class _Touch:
-    touch_down_timestamp = 0
-    touch_x_timestamp = 0
-    touch_y_timestamp = 0
-    touch_x_value = 0
-    touch_y_value = 0
+def check_touch(touch_data, callback):
+    for ev in touch.read():
+        _parse_event(ev, touch_data, lambda _x, _y: callback(_x, _y))
 
 
 def _parse_event(event, data, click_callback):
-    # printEvent(event)
     if event.type == evdev.ecodes.EV_ABS:
         if event.code == 1:
             data.touch_x_value = event.value
@@ -68,16 +68,4 @@ def _parse_event(event, data, click_callback):
         click_callback(data.touch_x_value, data.touch_y_value)
 
 
-def _touched(x, y):
-    print(f"Touch at: {x}|{y}")
 
-
-def _touch_loop():
-    touch = evdev.InputDevice(DISPLAY_TOUCH)
-    touch.grab()
-    touch_data = _Touch()
-    while True:
-        # TOD O get the right e-codes instead of int
-        # r, w, x = select.select([touch], [], [])
-        for ev in touch.read():
-            _parse_event(ev, touch_data, lambda _x, _y: _touched(_x, _y))

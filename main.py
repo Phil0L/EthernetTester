@@ -4,9 +4,11 @@ import sys
 from time import sleep
 
 import display
+from data import Data
 from update import update_check, KW_DO_UPDATE, update, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.1"
+VERSION = "0.2.2"
+data = Data()
 
 
 def pre_update():
@@ -16,11 +18,17 @@ def pre_update():
 
 def start():
     print("Started. Ctrl+C to quit.")
+    data.version = VERSION
     display.initialize()
 
 
 def loop():
     display.draw()
+    display.check_touch(data.touch, lambda x, y: touched(x, y))
+
+
+def touched(x, y):
+    print(f"Touch at: {x}|{y}")
 
 
 if __name__ == "__main__":
