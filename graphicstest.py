@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 
 import evdev
 import pygame
@@ -24,44 +25,39 @@ def refresh():
     time.sleep(0.1)
 
 
-touch_down_timestamp = 0
-touch_x_timestamp = 0
-touch_y_timestamp = 0
-touch_x_value = 0
-touch_y_value = 0
+class Touch:
+    touch_down_timestamp = 0
+    touch_x_timestamp = 0
+    touch_y_timestamp = 0
+    touch_x_value = 0
+    touch_y_value = 0
 
 
-def parse_event(event):
-    global touch_down_timestamp
-    global touch_x_timestamp
-    global touch_y_timestamp
-    global touch_x_value
-    global touch_y_value
-
+def parse_event(event, data):
     # printEvent(event)
     if event.type == evdev.ecodes.EV_ABS:
         if event.code == 1:
-            touch_x_value = event.value
-            touch_x_timestamp = event.timestamp()
+            data.touch_x_value = event.value
+            data.touch_x_timestamp = event.timestamp()
         elif event.code == 0:
-            touch_y_value = event.value
-            touch_y_timestamp = event.timestamp()
+            data.touch_y_value = event.value
+            data.touch_y_timestamp = event.timestamp()
         else:
             return
     elif event.type == evdev.ecodes.EV_KEY:
         if event.code == 330 and event.value == 1:
-            touch_down_timestamp = event.timestamp()
+            data.touch_down_timestamp = event.timestamp()
         else:
             return
     else:
         return
-    if touch_down_timestamp == touch_x_timestamp == touch_y_timestamp:
-        print("touch at: {0}:{1}".format(touch_x_value, touch_x_value))
-        pygame.draw.circle(lcd, (255, 0, 0), [touch_y_value, touch_x_value], 10, 2)
+    if data.touch_down_timestamp == data.touch_x_timestamp == data.touch_y_timestamp:
+        print("touch at: {0}:{1}".format(data.touch_x_value, data.touch_x_value))
+        pygame.draw.circle(lcd, (255, 0, 0), [data.touch_y_value, data.touch_x_value], 10, 2)
         refresh()
 
 
-if __name__ == "__main__":
+if __name__ == "__main_":
     # Note that we don't instantiate any display!
     pygame.init()
 
@@ -86,10 +82,42 @@ if __name__ == "__main__":
     # We make sure the events from the touchscreen will be handled only by this program
     # (so the mouse pointer won't move on X when we touch the TFT screen)
     touch.grab()
+    touch_data = Touch()
 
     # This loop allows us to write red dots on the screen where we touch it
     while True:
         # TOD O get the right e-codes instead of int
         r, w, x = select.select([touch], [], [])
         for ev in touch.read():
-            parse_event(ev)
+            parse_event(ev, touch_data)
+
+if __name__ == "__main__":
+    # Based on "Python GUI in Linux frame buffer"
+    # http://www.karoltomala.com/blog/?p=679
+    disp_no = os.getenv("DISPLAY")
+    if disp_no:
+        print("I'm running under X display = {0}".format(disp_no))
+
+    # Check which frame buffer drivers are available
+    # Start with fbcon since directfb hangs with composite output
+    drivers = ['fbcon', 'directfb', 'svgalib']
+    found = False
+    for driver in drivers:
+        # Make sure that SDL_VIDEODRIVER is set
+        if not os.getenv('SDL_VIDEODRIVER'):
+            os.putenv('SDL_VIDEODRIVER', driver)
+        try:
+            pygame.display.init()
+        except pygame.error:
+            print('Driver: {0} failed.'.format(driver))
+            continue
+        found = True
+        break
+
+    if not found:
+        raise Exception('No suitable video driver found!')
+
+    size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
+    print("Framebuffer size: %d x %d" % (size[0], size[1]))
+    screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+
