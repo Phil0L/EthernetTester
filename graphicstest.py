@@ -95,7 +95,7 @@ if __name__ == "__main__" and "1" in sys.argv:
 if __name__ == "__main__" and "2" in sys.argv:
     # Based on "Python GUI in Linux frame buffer"
     # http://www.karoltomala.com/blog/?p=679
-    os.putenv("DISPLAY", ":0")
+    # os.putenv("DISPLAY", ":0")
     pygame.display.init()
     # disp_no = os.getenv("DISPLAY")
     # if disp_no:
