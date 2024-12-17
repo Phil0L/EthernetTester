@@ -23,7 +23,7 @@ def start():
 
 
 def loop():
-    display.draw()
+    display.draw(data)
     display.check_touch(data.touch, lambda x, y: touched(x, y))
 
 

@@ -9,6 +9,8 @@ import select
 from pygame import Surface
 from pygame.font import Font
 
+from data import Data
+
 DISPLAY_SIZE = (800, 480)
 DISPLAY_FB = "/dev/fb0"
 DISPLAY_TOUCH = "/dev/input/event0"
@@ -28,17 +30,19 @@ def initialize():
     screen = pygame.display.set_mode(DISPLAY_SIZE, pygame.FULLSCREEN)
     pygame.font.init()
     font = pygame.font.SysFont(pygame.font.get_default_font(), 30)
-    draw()
+    draw(Data())
 
     touch = evdev.InputDevice(DISPLAY_TOUCH)
     touch.grab()
 
 
-def draw():
+def draw(data: Data):
     global screen
     global font
-    screen.fill((100, 0, 0))
-    screen.blit(font.render("Ethernet tester v.1", False, (255, 255, 255)), (3, 3))
+    screen.fill((0, 0, 0))
+    if data is None:
+        return
+    screen.blit(font.render(f"Ethernet tester v {data.version}", False, (255, 255, 255)), (3, 3))
 
     pygame.display.update()
 
