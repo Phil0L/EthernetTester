@@ -56,6 +56,7 @@ def parse_event(event, data):
         print("touch at: {0}:{1}".format(data.touch_x_value, data.touch_x_value))
         pygame.draw.circle(lcd, (255, 0, 0), [data.touch_y_value, data.touch_x_value], 10, 2)
         # refresh()
+        pygame.display.update()
 
 
 if __name__ == "__main__":
@@ -81,6 +82,7 @@ if __name__ == "__main__":
     defaultFont = pygame.font.SysFont(pygame.font.get_default_font(), 30)
     screen.fill((100, 0, 0))
     screen.blit(defaultFont.render("Hello World!", False, (255, 255, 255)), (0, 0))
+    pygame.display.update()
     # refresh()
 
     # We use evdev to read events from our touchscreen
