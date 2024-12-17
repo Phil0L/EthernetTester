@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import sys
 
 import evdev
 import pygame
@@ -57,7 +58,7 @@ def parse_event(event, data):
         refresh()
 
 
-if __name__ == "__main_":
+if __name__ == "__main__" and "1" in sys.argv:
     # Note that we don't instantiate any display!
     pygame.init()
 
@@ -91,7 +92,7 @@ if __name__ == "__main_":
         for ev in touch.read():
             parse_event(ev, touch_data)
 
-if __name__ == "__main__":
+if __name__ == "__main__" and "2" in sys.argv:
     # Based on "Python GUI in Linux frame buffer"
     # http://www.karoltomala.com/blog/?p=679
     disp_no = os.getenv("DISPLAY")
@@ -121,3 +122,7 @@ if __name__ == "__main__":
     print("Framebuffer size: %d x %d" % (size[0], size[1]))
     screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 
+if __name__ == "__main__" and "2" in sys.argv:
+    pygame.display.init()
+    pygame.init()
+    print(pygame.display.Info())
