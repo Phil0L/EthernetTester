@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # This loop allows us to write red dots on the screen where we touch it
     while True:
         # TOD O get the right e-codes instead of int
-        r, w, x = select.select([touch], [], [])
+        # r, w, x = select.select([touch], [], [])
         for ev in touch.read():
             parse_event(ev, touch_data)
 #
