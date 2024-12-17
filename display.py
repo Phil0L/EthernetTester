@@ -43,8 +43,11 @@ def draw():
 
 
 def check_touch(touch_data, callback):
-    for ev in touch.read():
-        _parse_event(ev, touch_data, lambda _x, _y: callback(_x, _y))
+    try:
+        for ev in touch.read():
+            _parse_event(ev, touch_data, lambda _x, _y: callback(_x, _y))
+    except IOError:
+        print("Error reading touch screen.")
 
 
 def _parse_event(event, data, click_callback):
