@@ -126,3 +126,5 @@ if __name__ == "__main__" and "3" in sys.argv:
     pygame.display.init()
     pygame.init()
     print(pygame.display.Info())
+    lcd = pygame.display.set_mode(DISPLAY_SIZE)
+    lcd.fill((255, 0, 0))
