@@ -3,4 +3,4 @@
 sleep 3s
 cd /home/philipp/EthernetTester || exit
 source .venv/bin/activate
-python graphictest.py 2
+python graphicstest.py 2
