@@ -2,4 +2,4 @@
 # location of startup script: /etc/init.d/ethernettester
 sleep 3s
 cd /home/philipp/EthernetTester || exit
-/home/philipp/EthernetTester/.venv/bin/python graphicstest.py
+/home/philipp/EthernetTester/.venv/bin/python main.py

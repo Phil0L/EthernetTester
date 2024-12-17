@@ -2,9 +2,11 @@
 
 import sys
 from time import sleep
+
+import display
 from update import update_check, KW_DO_UPDATE, update, KW_NO_UPDATE_CHECK
 
-VERSION = "0.1.1"
+VERSION = "0.2"
 
 
 def pre_update():
@@ -14,6 +16,7 @@ def pre_update():
 
 def start():
     print("Started. Ctrl+C to quit.")
+    display.initialize()
 
 
 if __name__ == "__main__":
