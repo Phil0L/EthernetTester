@@ -37,7 +37,7 @@ def draw(data: Data):
     screen.fill(BLACK)
     if data is None:
         return
-    screen.blit(font.render(f"Ethernet tester v {data.version}", False, WHITE), (TOP + 3, LEFT + 3))
+    screen.blit(font.render(f"Ethernet tester v {data.version}", False, WHITE), (LEFT + 3, TOP + 3))
     _draw_update(data)
 
     pygame.display.update()
@@ -49,6 +49,6 @@ def _update_clicked():
 
 def _draw_update(data: Data):
     font.set_underline(True)
-    screen.blit(font.render("Update", False, WHITE), (TOP + 3, 200))
+    screen.blit(font.render("Update", False, WHITE), (RIGHT-80, TOP+3))
     touch.touch_areas.append(TouchArea(RIGHT - 50, TOP + 3, RIGHT - 3, TOP + 30, lambda _: _update_clicked()))
     font.set_underline(False)
