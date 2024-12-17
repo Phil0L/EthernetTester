@@ -124,6 +124,8 @@ if __name__ == "__main__" and "2" in sys.argv:
     screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
     screen.fill((255, 0, 0))
     pygame.display.update()
+    time.sleep(300)
+    pygame.quit()
 
 if __name__ == "__main__" and "3" in sys.argv:
     pygame.display.init()
