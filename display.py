@@ -5,6 +5,7 @@ from typing import Any
 import evdev
 
 import pygame
+import select
 from pygame import Surface
 from pygame.font import Font
 
@@ -44,6 +45,7 @@ def draw():
 
 def check_touch(touch_data, callback):
     try:
+        _read, _write, _execute = select.select([touch], [], [])
         for ev in touch.read():
             _parse_event(ev, touch_data, lambda _x, _y: callback(_x, _y))
     except IOError:
