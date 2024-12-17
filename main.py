@@ -33,13 +33,13 @@ def touched(x, y):
 
 
 if __name__ == "__main__":
+    if KW_LOGFILE in sys.argv:
+        print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
     pre_update()
     if KW_DO_UPDATE in sys.argv:
         update()
     elif KW_NO_UPDATE_CHECK not in sys.argv:
         update_count = update_check()
-    if KW_LOGFILE in sys.argv:
-        print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
     start()
     while True:
         loop()
