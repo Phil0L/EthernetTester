@@ -103,6 +103,7 @@ if __name__ == "__main__" and "2" in sys.argv:
     # Start with fbcon since directfb hangs with composite output
     drivers = ['fbcon', 'directfb', 'svgalib', 'xvfb', 'x11']
     found = False
+    os.putenv("DISPLAY", ":0")
     for driver in drivers:
         # Make sure that SDL_VIDEODRIVER is set
         if not os.getenv('SDL_VIDEODRIVER'):
@@ -121,6 +122,8 @@ if __name__ == "__main__" and "2" in sys.argv:
     size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
     print("Framebuffer size: %d x %d" % (size[0], size[1]))
     screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+    screen.fill((255, 0, 0))
+    pygame.display.update()
 
 if __name__ == "__main__" and "3" in sys.argv:
     pygame.display.init()
