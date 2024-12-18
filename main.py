@@ -8,7 +8,7 @@ import update
 from data import Data
 from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.6"
+VERSION = "0.2.7"
 KW_LOGFILE = "logfile"
 data = Data()
 
