@@ -80,8 +80,8 @@ def _draw_update(data: Data):
         while update_area in touch.touch_areas:
             touch.touch_areas.remove(update_area)
     else:
-        screen.fill(WHITE, update_area.to_rect())
-        screen.fill(BLACK, update_area.to_rect().inflate(-2 * 2, -2 * 2))
+        # screen.fill(WHITE, update_area.to_rect())
+        # screen.fill(BLACK, update_area.to_rect().inflate(-2 * 2, -2 * 2))
         font.set_underline(True)
         screen.blit(font.render("Update", False, WHITE), (update_area.left+5, TOP+3))
         if update_area not in touch.touch_areas:
@@ -90,8 +90,8 @@ def _draw_update(data: Data):
 
 
 def _draw_console(data: Data):
-    screen.fill(WHITE, console_area.to_rect())
-    screen.fill(BLACK, console_area.to_rect().inflate(-2 * 2, -2 * 2))
+    # screen.fill(WHITE, console_area.to_rect())
+    # screen.fill(BLACK, console_area.to_rect().inflate(-2 * 2, -2 * 2))
     font.set_underline(True)
     screen.blit(font.render("Console", False, WHITE), (console_area.left+5, TOP+3))
     if console_area not in touch.touch_areas:
@@ -112,5 +112,5 @@ def _draw_left(data: Data):
 
 
 def _draw_right(data: Data):
-    screen.fill(WHITE, Rect(LEFT+403, TOP+25, RIGHT-30, BOTTOM-30))
-    screen.fill(BLACK, Rect(LEFT+403, TOP+25, RIGHT-30, BOTTOM-30).inflate(-2 * 2, -2 * 2))
+    screen.fill(WHITE, Rect(LEFT+403, TOP+25, RIGHT-50, BOTTOM-30))
+    screen.fill(BLACK, Rect(LEFT+403, TOP+25, RIGHT-50, BOTTOM-30).inflate(-2 * 2, -2 * 2))
