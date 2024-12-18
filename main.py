@@ -16,10 +16,20 @@ def pre_update():
     print(f"Version: {VERSION}")
 
 
+def update_clicked():
+    update_check()
+
+
+def console_clicked():
+    pass
+
+
 def start():
     print("Started. Ctrl+C to quit.")
     data.version = VERSION
     display.initialize()
+    display.on_update_clicked(lambda _: update_clicked())
+    display.on_console_clicked(lambda _: console_clicked())
     touch.initialize()
 
 

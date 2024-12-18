@@ -17,7 +17,8 @@ def update_check():
         if update_count > 0:
             print(f"{update_count} updates available. Run 'python main.py update' to update")
         return update_count
-    except GitCommandError:
+    except GitCommandError as e:
+        print(e)
         return 0
 
 
