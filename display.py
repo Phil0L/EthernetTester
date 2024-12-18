@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-
+import contextlib
 import os
-import pygame
-from pygame import Surface
-from pygame.font import Font
+with contextlib.redirect_stdout(None):
+    import pygame
+    from pygame import Surface
+    from pygame.font import Font
 
 import touch
 from touch import TouchArea
