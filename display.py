@@ -17,6 +17,7 @@ TOP = 0
 BOTTOM = 480
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+GREEN = (30, 200, 80)
 
 screen: Surface
 font: Font
@@ -121,6 +122,6 @@ def _draw_right(data: Data):
     top = TOP+30
     screen.blit(font.render("IP tester:", False, WHITE), (left, top))
     screen.blit(font.render("IP v4 address:", False, WHITE), (left, top+40))
-    screen.blit(small_font.render(data.ipv4, False, WHITE), (left, top+65))
+    screen.blit(small_font.render(data.ipv4, False, GREEN), (left, top+65))
     screen.blit(font.render("IP v6 address:", False, WHITE), (left, top+105))
-    screen.blit(small_font.render(data.ipv6, False, WHITE), (left, top+130))
+    screen.blit(small_font.render(data.ipv6, False, GREEN), (left, top+130))
