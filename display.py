@@ -20,8 +20,8 @@ BLACK = (0, 0, 0)
 
 screen: Surface
 font: Font
-console_area = TouchArea(RIGHT-150, TOP, RIGHT-70, TOP+30, lambda _: _update_clicked())
-update_area = TouchArea(RIGHT-250, TOP, RIGHT-170, TOP+30, lambda _: _console_clicked())
+console_area = TouchArea(RIGHT-150, TOP, RIGHT-70, TOP+30, lambda: _update_clicked())
+update_area = TouchArea(RIGHT-250, TOP, RIGHT-170, TOP+30, lambda: _console_clicked())
 update_callback = None
 console_callback = None
 
