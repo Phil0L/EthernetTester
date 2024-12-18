@@ -20,8 +20,8 @@ BLACK = (0, 0, 0)
 
 screen: Surface
 font: Font
-console_area = TouchArea(RIGHT-165, TOP, RIGHT-70, TOP+30, lambda: _update_clicked())
-update_area = TouchArea(RIGHT-250, TOP, RIGHT-170, TOP+30, lambda: _console_clicked())
+console_area = TouchArea(RIGHT-165, TOP, RIGHT-70, TOP+30, lambda: _console_clicked())
+update_area = TouchArea(RIGHT-250, TOP, RIGHT-170, TOP+30, lambda: _update_clicked())
 update_callback = None
 console_callback = None
 
@@ -94,3 +94,15 @@ def _draw_console(data: Data):
     if console_area not in touch.touch_areas:
         touch.touch_areas.append(console_area)
     font.set_underline(False)
+
+
+def _draw_charge(data: Data):
+    pass
+
+
+def _draw_left(data: Data):
+    pass
+
+
+def _draw_right(data: Data):
+    pass
