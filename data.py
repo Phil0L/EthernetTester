@@ -1,7 +1,7 @@
 import json
 
 
-class _Touch:
+class Touch:
     touch_down_timestamp = 0
     touch_x_timestamp = 0
     touch_y_timestamp = 0
@@ -12,7 +12,7 @@ class _Touch:
 class Data:
     version = ""
     update_count = 0
-    touch_data = _Touch()
+    touch_data = Touch()
 
     def toJSON(self):
         return json.dumps(
