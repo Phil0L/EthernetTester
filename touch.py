@@ -30,10 +30,10 @@ def check_touch(touch_data):
 
 def _parse_event(event, data, click_callback):
     if event.type == evdev.ecodes.EV_ABS:
-        if event.code == 1:
+        if event.code == 0:
             data.touch_x_value = event.value
             data.touch_x_timestamp = event.timestamp()
-        elif event.code == 0:
+        elif event.code == 1:
             data.touch_y_value = event.value
             data.touch_y_timestamp = event.timestamp()
         else:
