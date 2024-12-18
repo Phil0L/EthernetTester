@@ -5,6 +5,7 @@ import evdev
 from typing import Any
 
 import select
+from pygame import Rect
 
 DISPLAY_TOUCH = "/dev/input/event0"
 
@@ -70,6 +71,9 @@ class TouchArea:
     def execute(self):
         if self.callback is not None:
             self.callback()
+
+    def to_rect(self):
+        return Rect(self.left, self.top, self.right-self.left, self.bottom-self.top)
 
 
 def _check_touch_area(x, y):
