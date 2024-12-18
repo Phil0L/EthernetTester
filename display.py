@@ -101,9 +101,9 @@ def _draw_console(data: Data):
 
 def _draw_charge(data: Data):
     if data.charging:
-        screen.blit(font.render("{:3.1f}%+".format(data.charge), False, WHITE), (RIGHT-70, TOP+3))
+        screen.blit(font.render("{:3.1f}%+".format(data.charge), False, WHITE), (RIGHT-80, TOP+3))
     else:
-        screen.blit(font.render("{:3.1f}%".format(data.charge), False, WHITE), (RIGHT-70, TOP+3))
+        screen.blit(font.render("{:3.1f}%".format(data.charge), False, WHITE), (RIGHT-65, TOP+3))
 
 
 def _draw_left(data: Data):
