@@ -20,6 +20,7 @@ BLACK = (0, 0, 0)
 
 screen: Surface
 font: Font
+small_font: Font
 console_area = TouchArea(RIGHT-195, TOP, RIGHT-100, TOP+30, lambda: _console_clicked())
 update_area = TouchArea(RIGHT-280, TOP, RIGHT-200, TOP+30, lambda: _update_clicked())
 update_callback = None
@@ -29,12 +30,14 @@ console_callback = None
 def initialize():
     global screen
     global font
+    global small_font
     os.putenv("DISPLAY", ":0")
     pygame.display.init()
     pygame.init()
     screen = pygame.display.set_mode(DISPLAY_SIZE, pygame.FULLSCREEN)
     pygame.font.init()
     font = pygame.font.SysFont(pygame.font.get_default_font(), 30)
+    small_font = pygame.font.SysFont(pygame.font.get_default_font(), 23)
     draw(Data())
 
 
@@ -116,7 +119,8 @@ def _draw_right(data: Data):
     screen.fill(BLACK, Rect(LEFT+403, TOP+25, 397, BOTTOM-30).inflate(-2 * 2, -2 * 2))
     left = LEFT+406
     top = TOP+30
-    screen.blit(font.render("IP v4 address:", False, WHITE), (left, top))
-    screen.blit(font.render(data.ipv4, False, WHITE), (left, top+25))
-    screen.blit(font.render("IP v6 address:", False, WHITE), (left, top+55))
-    screen.blit(font.render(data.ipv6, False, WHITE), (left, top+80))
+    screen.blit(font.render("IP tester:", False, WHITE), (left, top))
+    screen.blit(font.render("IP v4 address:", False, WHITE), (left, top+40))
+    screen.blit(small_font.render(data.ipv4, False, WHITE), (left, top+65))
+    screen.blit(font.render("IP v6 address:", False, WHITE), (left, top+105))
+    screen.blit(small_font.render(data.ipv6, False, WHITE), (left, top+130))
