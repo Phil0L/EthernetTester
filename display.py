@@ -114,3 +114,9 @@ def _draw_left(data: Data):
 def _draw_right(data: Data):
     screen.fill(WHITE, Rect(LEFT+403, TOP+25, 397, BOTTOM-30))
     screen.fill(BLACK, Rect(LEFT+403, TOP+25, 397, BOTTOM-30).inflate(-2 * 2, -2 * 2))
+    left = LEFT+406
+    top = TOP+30
+    screen.blit(font.render("IP v4 address:", False, WHITE), (left, top))
+    screen.blit(font.render(data.ipv4, False, WHITE), (left, top+25))
+    screen.blit(font.render("IP v6 address:", False, WHITE), (left, top+55))
+    screen.blit(font.render(data.ipv6, False, WHITE), (left, top+80))
