@@ -87,6 +87,8 @@ def _draw_update(data: Data):
 
 
 def _draw_console(data: Data):
+    screen.fill(WHITE, console_area.to_rect())
+    screen.fill(BLACK, console_area.to_rect().inflate(-2 * 2, -2 * 2))
     font.set_underline(True)
     screen.blit(font.render("Console", False, WHITE), (RIGHT-150, TOP+3))
     if console_area not in touch.touch_areas:
