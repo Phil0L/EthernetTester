@@ -8,4 +8,6 @@ class _Touch:
 
 class Data:
     version = ""
-    touch = _Touch()
+    update_count = 0
+    touch_data = _Touch()
+

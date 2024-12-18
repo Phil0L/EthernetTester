@@ -4,10 +4,11 @@ import datetime
 import sys
 import display
 import touch
+import update
 from data import Data
-from update import update_check, KW_DO_UPDATE, update, KW_NO_UPDATE_CHECK
+from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.4"
+VERSION = "0.2.5"
 KW_LOGFILE = "logfile"
 data = Data()
 
@@ -18,11 +19,15 @@ def pre_update():
 
 
 def update_clicked():
-    update_check()
+    update.update()
 
 
 def console_clicked():
     pass
+
+
+def updates_counted(update_count):
+    data.update_count = update_count
 
 
 def start():
@@ -32,11 +37,12 @@ def start():
     display.on_update_clicked(lambda _: update_clicked())
     display.on_console_clicked(lambda _: console_clicked())
     touch.initialize()
+    update.start_update_loop(lambda update_count: updates_counted(update_count))
 
 
 def loop():
     display.draw(data)
-    touch.check_touch(data.touch)
+    touch.check_touch(data.touch_data)
 
 
 if __name__ == "__main__":
@@ -46,9 +52,9 @@ if __name__ == "__main__":
         sys.stderr = sys.stdout
     pre_update()
     if KW_DO_UPDATE in sys.argv:
-        update()
+        update.update()
     elif KW_NO_UPDATE_CHECK not in sys.argv:
-        update_count = update_check()
+        data.update_count = update.update_check()
     start()
     while True:
         loop()
