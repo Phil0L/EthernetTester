@@ -49,7 +49,7 @@ def status():
 
 
 def start_update_loop(callback):
-    thread = threading.Thread(target=_update_loop, args=callback)
+    thread = threading.Thread(target=_update_loop, args=(callback,))
     thread.start()
 
 
