@@ -5,12 +5,13 @@ import sys
 
 import charge
 import display
+import ethernet
 import touch
 import update
 from data import Data
 from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.8"
+VERSION = "0.2.9"
 KW_LOGFILE = "logfile"
 data = Data()
 
@@ -47,6 +48,8 @@ def loop():
     data.frame_count += 1
     data.charge = charge.get_charge_percentage()
     data.charging = charge.is_charging()
+    data.ipv4 = ethernet.get_ipv4_address()
+    data.ipv6 = ethernet.get_ipv6_address()
     display.draw(data)
 
 

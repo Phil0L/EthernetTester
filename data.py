@@ -16,6 +16,8 @@ class Data:
     frame_count = 0
     charge = 0
     charging = False
+    ipv4 = ""
+    ipv6 = ""
 
     def toJSON(self):
         return json.dumps(
