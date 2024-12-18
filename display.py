@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import contextlib
+import json
 import os
 with contextlib.redirect_stdout(None):
     import pygame
@@ -42,6 +43,7 @@ def draw(data: Data):
     screen.fill(BLACK)
     if data is None:
         return
+    print(f"DEBUG data to draw = {json.dumps(data.__dict__)}")
     screen.blit(font.render(f"Ethernet tester v {data.version}", False, WHITE), (LEFT + 3, TOP + 3))
     _draw_update(data)
     _draw_console(data)

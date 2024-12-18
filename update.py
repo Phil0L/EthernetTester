@@ -18,9 +18,6 @@ stop_signal = False
 def update_check():
     try:
         update_count = status()
-        # DEBUG
-        if update_count > 0:
-            print(f"{update_count} updates available. Run 'python main.py update' to update")
         return update_count
     except GitCommandError as e:
         print(e)

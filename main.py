@@ -55,6 +55,8 @@ if __name__ == "__main__":
         update.update()
     elif KW_NO_UPDATE_CHECK not in sys.argv:
         data.update_count = update.update_check()
+        if data.update_count > 0:
+            print(f"{data.update_count} updates available. Run 'python main.py update' to update")
     start()
     while True:
         loop()
