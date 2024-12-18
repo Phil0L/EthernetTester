@@ -48,6 +48,9 @@ def draw(data: Data):
     screen.blit(font.render(f"Ethernet tester v {data.version}", False, WHITE), (LEFT + 3, TOP + 3))
     _draw_update(data)
     _draw_console(data)
+    _draw_charge(data)
+    _draw_left(data)
+    _draw_right(data)
 
     pygame.display.update()
 
