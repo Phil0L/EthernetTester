@@ -2,6 +2,8 @@
 import os
 import datetime
 import sys
+
+import charge
 import display
 import touch
 import update
@@ -43,6 +45,8 @@ def start():
 
 def loop():
     data.frame_count += 1
+    data.charge = charge.get_charge_percentage()
+    data.charging = charge.is_charging()
     display.draw(data)
 
 

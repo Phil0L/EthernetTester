@@ -14,6 +14,8 @@ class Data:
     update_count = 0
     touch_data = Touch()
     frame_count = 0
+    charge = 0
+    charging = False
 
     def toJSON(self):
         return json.dumps(
