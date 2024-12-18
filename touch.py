@@ -64,6 +64,7 @@ class TouchArea:
         self.callback = callback
 
     def is_inside(self, x, y):
+        print(f"DEBUG {self.left} < {x} < {self.right} | {self.top} < {y} < {self.bottom}")
         return self.left < x < self.right and self.top < y < self.bottom
 
     def execute(self):

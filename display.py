@@ -43,7 +43,7 @@ def draw(data: Data):
     if data is None:
         return
     json = data.toJSON().replace('\n', '')
-    if data.frame_count % 50 == 0:
+    if data.frame_count % 300 == 0:
         print(f"DEBUG data to draw = {json}")
     screen.blit(font.render(f"Ethernet tester v {data.version}", False, WHITE), (LEFT + 3, TOP + 3))
     _draw_update(data)
