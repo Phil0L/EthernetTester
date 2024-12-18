@@ -19,7 +19,6 @@ def update_check():
     try:
         update_count = status()
         # DEBUG
-        print(f"update_count = {update_count}")
         if update_count > 0:
             print(f"{update_count} updates available. Run 'python main.py update' to update")
         return update_count
@@ -59,6 +58,7 @@ def start_update_loop(callback):
 def _update_loop(callback):
     while not stop_signal:
         update_count = update_check()
+        print(f"DEBUG update_count = {update_count}")
         callback(update_count)
         sleep(10)
 
