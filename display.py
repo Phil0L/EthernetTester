@@ -20,8 +20,8 @@ BLACK = (0, 0, 0)
 
 screen: Surface
 font: Font
-console_area = TouchArea(RIGHT-165, TOP, RIGHT-70, TOP+30, lambda: _console_clicked())
-update_area = TouchArea(RIGHT-250, TOP, RIGHT-170, TOP+30, lambda: _update_clicked())
+console_area = TouchArea(RIGHT-195, TOP, RIGHT-100, TOP+30, lambda: _console_clicked())
+update_area = TouchArea(RIGHT-280, TOP, RIGHT-200, TOP+30, lambda: _update_clicked())
 update_callback = None
 console_callback = None
 
@@ -83,7 +83,7 @@ def _draw_update(data: Data):
         screen.fill(WHITE, update_area.to_rect())
         screen.fill(BLACK, update_area.to_rect().inflate(-2 * 2, -2 * 2))
         font.set_underline(True)
-        screen.blit(font.render("Update", False, WHITE), (RIGHT-245, TOP+3))
+        screen.blit(font.render("Update", False, WHITE), (update_area.left+5, TOP+3))
         if update_area not in touch.touch_areas:
             touch.touch_areas.append(update_area)
         font.set_underline(False)
@@ -93,7 +93,7 @@ def _draw_console(data: Data):
     screen.fill(WHITE, console_area.to_rect())
     screen.fill(BLACK, console_area.to_rect().inflate(-2 * 2, -2 * 2))
     font.set_underline(True)
-    screen.blit(font.render("Console", False, WHITE), (RIGHT-160, TOP+3))
+    screen.blit(font.render("Console", False, WHITE), (console_area.left+5, TOP+3))
     if console_area not in touch.touch_areas:
         touch.touch_areas.append(console_area)
     font.set_underline(False)
@@ -101,9 +101,9 @@ def _draw_console(data: Data):
 
 def _draw_charge(data: Data):
     if data.charging:
-        screen.blit(font.render("{:3.1f}%+".format(data.charge), False, WHITE), (RIGHT-80, TOP+3))
+        screen.blit(font.render("{:3.1f}%+".format(data.charge), False, WHITE), (RIGHT-70, TOP+3))
     else:
-        screen.blit(font.render("{:3.1f}%".format(data.charge), False, WHITE), (RIGHT-80, TOP+3))
+        screen.blit(font.render("{:3.1f}%".format(data.charge), False, WHITE), (RIGHT-70, TOP+3))
 
 
 def _draw_left(data: Data):
