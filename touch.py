@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import threading
+
 import evdev
 from typing import Any
 
@@ -8,6 +10,7 @@ DISPLAY_TOUCH = "/dev/input/event0"
 
 touch: Any
 touch_areas = []
+stop_signal = False
 
 
 def initialize():
@@ -69,6 +72,18 @@ class TouchArea:
 
 
 def _check_touch_area(x, y):
+    print(f"DEBUG touched screen")
     for touch_area in touch_areas:
         if touch_area.is_inside(x, y):
+            print(f"DEBUG touch area hit")
             touch_area.execute()
+
+
+def start_touch_loop(touch_data):
+    thread = threading.Thread(target=_touch_loop, args=(touch_data,))
+    thread.start()
+
+
+def _touch_loop(data):
+    while not stop_signal:
+        check_touch(data)

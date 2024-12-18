@@ -1,3 +1,6 @@
+import json
+
+
 class _Touch:
     touch_down_timestamp = 0
     touch_x_timestamp = 0
@@ -10,4 +13,11 @@ class Data:
     version = ""
     update_count = 0
     touch_data = _Touch()
+
+    def toJSON(self):
+        return json.dumps(
+            self,
+            default=lambda o: o.__dict__,
+            sort_keys=True,
+            indent=0)
 

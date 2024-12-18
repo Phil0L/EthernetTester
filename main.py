@@ -38,18 +38,18 @@ def start():
     display.on_console_clicked(lambda _: console_clicked())
     touch.initialize()
     update.start_update_loop(lambda update_count: updates_counted(update_count))
+    touch.start_touch_loop(data.touch_data)
 
 
 def loop():
     display.draw(data)
-    touch.check_touch(data.touch_data)
 
 
 if __name__ == "__main__":
     if KW_LOGFILE in sys.argv:
-        print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
         sys.stdout = open('log.txt', 'w')
         sys.stderr = sys.stdout
+        print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
     pre_update()
     if KW_DO_UPDATE in sys.argv:
         update.update()
