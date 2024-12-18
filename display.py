@@ -80,7 +80,7 @@ def _draw_update(data: Data):
         screen.fill(WHITE, update_area.to_rect())
         screen.fill(BLACK, update_area.to_rect().inflate(-2 * 2, -2 * 2))
         font.set_underline(True)
-        screen.blit(font.render("Update", False, WHITE), (RIGHT-250, TOP+3))
+        screen.blit(font.render("Update", False, WHITE), (RIGHT-245, TOP+3))
         if update_area not in touch.touch_areas:
             touch.touch_areas.append(update_area)
         font.set_underline(False)

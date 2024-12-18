@@ -34,8 +34,8 @@ def start():
     print("Started. Ctrl+C to quit.")
     data.version = VERSION
     display.initialize()
-    display.on_update_clicked(lambda _: update_clicked())
-    display.on_console_clicked(lambda _: console_clicked())
+    display.on_update_clicked(lambda: update_clicked())
+    display.on_console_clicked(lambda: console_clicked())
     touch.initialize()
     update.start_update_loop(lambda update_count: updates_counted(update_count))
     touch.start_touch_loop(data.touch_data)
