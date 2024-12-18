@@ -13,6 +13,7 @@ class Data:
     version = ""
     update_count = 0
     touch_data = Touch()
+    frame_count = 0
 
     def toJSON(self):
         return json.dumps(

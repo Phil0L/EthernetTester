@@ -42,6 +42,7 @@ def start():
 
 
 def loop():
+    data.frame_count += 1
     display.draw(data)
 
 
