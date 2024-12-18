@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 import datetime
 import sys
 import display
@@ -9,6 +10,7 @@ from update import update_check, KW_DO_UPDATE, update, KW_NO_UPDATE_CHECK
 VERSION = "0.2.4"
 KW_LOGFILE = "logfile"
 data = Data()
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
 
 def pre_update():
