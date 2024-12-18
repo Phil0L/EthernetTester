@@ -107,9 +107,10 @@ def _draw_charge(data: Data):
 
 
 def _draw_left(data: Data):
-    screen.fill(WHITE, Rect(LEFT+3, TOP+20, LEFT+397, BOTTOM-3))
-    screen.fill(BLACK, Rect(LEFT+3, TOP+20, LEFT+397, BOTTOM-3).inflate(-2 * 2, -2 * 2))
+    screen.fill(WHITE, Rect(LEFT+3, TOP+25, LEFT+397, BOTTOM-30))
+    screen.fill(BLACK, Rect(LEFT+3, TOP+25, LEFT+397, BOTTOM-30).inflate(-2 * 2, -2 * 2))
 
 
 def _draw_right(data: Data):
-    pass
+    screen.fill(WHITE, Rect(LEFT+403, TOP+25, RIGHT-3, BOTTOM-30))
+    screen.fill(BLACK, Rect(LEFT+403, TOP+25, RIGHT-3, BOTTOM-30).inflate(-2 * 2, -2 * 2))
