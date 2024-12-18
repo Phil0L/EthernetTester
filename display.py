@@ -71,7 +71,8 @@ def _console_clicked():
 
 def _draw_update(data: Data):
     if data.update_count <= 0:
-        touch.touch_areas.remove(update_area)
+        while update_area in touch.touch_areas:
+            touch.touch_areas.remove(update_area)
     else:
         font.set_underline(True)
         screen.blit(font.render("Update", False, WHITE), (RIGHT-250, TOP+3))
