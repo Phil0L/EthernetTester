@@ -33,6 +33,7 @@ def update():
     stop_signal = True
     code = subprocess.call(["python", "updater.py"], shell=False)
     if code == KW_UP_TO_DATE:
+        stop_signal = False
         return
     print("Restarting...")
     os.execv(sys.executable, ['python'] + sys.argv + [KW_RESTART, KW_NO_UPDATE_CHECK])
