@@ -1,7 +1,7 @@
 import json
 
 
-class Touch:
+class _Touch:
     touch_down_timestamp = 0
     touch_x_timestamp = 0
     touch_y_timestamp = 0
@@ -12,7 +12,7 @@ class Touch:
 class Data:
     version = ""
     update_count = 0
-    touch_data = Touch()
+    touch_data = _Touch()
     frame_count = 0
     charge = 0
     charging = False
@@ -21,9 +21,7 @@ class Data:
     cable: dict[int, list[int]] = {}
 
     def toJSON(self):
-        return json.dumps(
-            self,
-            default=lambda o: o.__dict__,
-            sort_keys=True,
-            indent=0)
-
+        return json.dumps(self,
+                          indent=0)[:-1] + ", \"cable\": " + \
+               json.dumps(self.cable,
+                          indent=0) + "}"
