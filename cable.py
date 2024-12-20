@@ -27,7 +27,7 @@ OUT_7 = 11  # GPIO 11, PIN 23
 OUT_8 = 5  # GPIO 5,  PIN 29
 OUT_S = 6  # GPIO 6,  PIN 31
 
-PIN_TEST_LENGTH = 16 # frames
+PIN_TEST_LENGTH = 2**6 # frames
 
 GPIO.setup(IN_1, GPIO.IN)
 GPIO.setup(IN_2, GPIO.IN)
