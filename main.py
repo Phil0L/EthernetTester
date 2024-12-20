@@ -3,6 +3,7 @@ import os
 import datetime
 import sys
 
+import cable
 import charge
 import display
 import ethernet
@@ -11,7 +12,7 @@ import update
 from data import Data
 from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.9"
+VERSION = "0.2.10"
 KW_LOGFILE = "logfile"
 data = Data()
 
@@ -42,6 +43,7 @@ def start():
     touch.initialize()
     update.start_update_loop(lambda update_count: updates_counted(update_count))
     touch.start_touch_loop(data.touch_data)
+    cable.all_on()
 
 
 def loop():
@@ -50,6 +52,8 @@ def loop():
     data.charging = charge.is_charging()
     data.ipv4 = ethernet.get_ipv4_address()
     data.ipv6 = ethernet.get_ipv6_address()
+    pin, read = cable.test(data.frame_count)
+    data.cable[pin] = read
     display.draw(data)
 
 

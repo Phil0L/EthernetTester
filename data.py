@@ -18,6 +18,7 @@ class Data:
     charging = False
     ipv4 = ""
     ipv6 = ""
+    cable: dict[int, list[int]] = {}
 
     def toJSON(self):
         return json.dumps(
