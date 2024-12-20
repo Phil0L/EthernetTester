@@ -43,7 +43,6 @@ def start():
     touch.initialize()
     update.start_update_loop(lambda update_count: updates_counted(update_count))
     touch.start_touch_loop(data.touch_data)
-    cable.all_on()
 
 
 def loop():

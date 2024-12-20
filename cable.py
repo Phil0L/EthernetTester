@@ -27,6 +27,8 @@ OUT_7 = 11  # GPIO 11, PIN 23
 OUT_8 = 5  # GPIO 5,  PIN 29
 OUT_S = 6  # GPIO 6,  PIN 31
 
+PIN_TEST_LENGTH = 16 # frames
+
 GPIO.setup(IN_1, GPIO.IN)
 GPIO.setup(IN_2, GPIO.IN)
 GPIO.setup(IN_3, GPIO.IN)
@@ -81,13 +83,13 @@ def test(frame):
     global current_output
     # test each pin for 6 frames, then wait 2 frames
     # measure each voltage at each frame
-    if frame % 8 <= 1:
+    if frame % PIN_TEST_LENGTH < PIN_TEST_LENGTH // 4:
         # reset
         current_pin = -1
         current_output = []
         all_off()
         return -1, []
-    current_pin = frame // 8 % 9
+    current_pin = frame // PIN_TEST_LENGTH % 9
     if current_pin == 1:
         GPIO.output(OUT_1, True)
     if current_pin == 2:
