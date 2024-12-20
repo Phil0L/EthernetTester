@@ -109,7 +109,8 @@ def test(frame):
     if current_pin == 0:
         GPIO.output(OUT_S, True)
     current_output = _read(current_output)
-
+    if len(current_output) == 9: # unplugged
+        return current_pin, []
     return current_pin, current_output
 
 
@@ -141,6 +142,4 @@ def _read(last):
     if 8 not in last:
         if GPIO.input(IN_8):
             last.append(8)
-    if len(last) == 9: # unplugged
-        last = []
     return last
