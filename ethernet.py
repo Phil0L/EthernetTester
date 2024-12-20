@@ -1,5 +1,7 @@
 import netifaces
 
+# ethtool eth0 | grep Speed
+
 
 def get_ipv4_address():
     try:

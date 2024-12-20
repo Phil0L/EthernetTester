@@ -49,27 +49,27 @@ GPIO.setup(OUT_S, GPIO.OUT)
 
 
 def all_on():
-    GPIO.output(IN_1, True)
-    GPIO.output(IN_2, True)
-    GPIO.output(IN_3, True)
-    GPIO.output(IN_4, True)
-    GPIO.output(IN_5, True)
-    GPIO.output(IN_6, True)
-    GPIO.output(IN_7, True)
-    GPIO.output(IN_8, True)
-    GPIO.output(IN_S, True)
+    GPIO.output(OUT_2, True)
+    GPIO.output(OUT_1, True)
+    GPIO.output(OUT_3, True)
+    GPIO.output(OUT_4, True)
+    GPIO.output(OUT_5, True)
+    GPIO.output(OUT_6, True)
+    GPIO.output(OUT_7, True)
+    GPIO.output(OUT_8, True)
+    GPIO.output(OUT_S, True)
 
 
 def all_off():
-    GPIO.output(IN_1, False)
-    GPIO.output(IN_2, False)
-    GPIO.output(IN_3, False)
-    GPIO.output(IN_4, False)
-    GPIO.output(IN_5, False)
-    GPIO.output(IN_6, False)
-    GPIO.output(IN_7, False)
-    GPIO.output(IN_8, False)
-    GPIO.output(IN_S, False)
+    GPIO.output(OUT_1, False)
+    GPIO.output(OUT_2, False)
+    GPIO.output(OUT_3, False)
+    GPIO.output(OUT_4, False)
+    GPIO.output(OUT_5, False)
+    GPIO.output(OUT_6, False)
+    GPIO.output(OUT_7, False)
+    GPIO.output(OUT_8, False)
+    GPIO.output(OUT_S, False)
 
 
 current_pin = -1
