@@ -141,4 +141,6 @@ def _read(last):
     if 8 not in last:
         if GPIO.input(IN_8):
             last.append(8)
+    if len(last) == 9: # unplugged
+        last = []
     return last
