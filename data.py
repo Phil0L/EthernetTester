@@ -22,6 +22,7 @@ class Data:
 
     def toJSON(self):
         return json.dumps(self,
+                          default=lambda o: o.__dict__,
                           indent=0)[:-1] + ", \"cable\": " + \
                json.dumps(self.cable,
                           indent=0) + "}"
