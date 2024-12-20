@@ -29,15 +29,15 @@ OUT_S = 6  # GPIO 6,  PIN 31
 
 PIN_TEST_LENGTH = 2**6 # frames
 
-GPIO.setup(IN_1, GPIO.IN)
-GPIO.setup(IN_2, GPIO.IN)
-GPIO.setup(IN_3, GPIO.IN)
-GPIO.setup(IN_4, GPIO.IN)
-GPIO.setup(IN_5, GPIO.IN)
-GPIO.setup(IN_6, GPIO.IN)
-GPIO.setup(IN_7, GPIO.IN)
-GPIO.setup(IN_8, GPIO.IN)
-GPIO.setup(IN_S, GPIO.IN)
+GPIO.setup(IN_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(IN_2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(IN_3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(IN_4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(IN_5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(IN_6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(IN_7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(IN_8, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(IN_S, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 GPIO.setup(OUT_1, GPIO.OUT)
 GPIO.setup(OUT_2, GPIO.OUT)
