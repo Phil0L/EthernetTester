@@ -56,6 +56,8 @@ def loop():
     pin, read = cable.test(data.frame_count)
     data.cable[pin] = read
     display.draw(data)
+    sys.stdout.flush()
+    sys.stderr.flush()
 
 
 if __name__ == "__main__":
