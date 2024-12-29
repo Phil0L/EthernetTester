@@ -62,7 +62,7 @@ def loop():
 
 if __name__ == "__main__":
     if KW_LOGFILE in sys.argv:
-        sys.stdout = open('log.txt', 'w')
+        sys.stdout = open('log.txt', 'a')
         sys.stderr = sys.stdout
         print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
     pre_update()
