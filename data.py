@@ -18,6 +18,8 @@ class Data:
     charging = False
     ipv4 = ""
     ipv6 = ""
+    wlan = ""
+    speed = ""
     cable: dict[int, list[int]] = {}
 
     def toJSON(self):

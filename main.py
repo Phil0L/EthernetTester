@@ -51,6 +51,8 @@ def loop():
     data.charging = charge.is_charging()
     data.ipv4 = ethernet.get_ipv4_address()
     data.ipv6 = ethernet.get_ipv6_address()
+    data.wlan = ethernet.get_wifi_ipv4_address()
+    data.speed = ethernet.get_speed()
     pin, read = cable.test(data.frame_count)
     data.cable[pin] = read
     display.draw(data)

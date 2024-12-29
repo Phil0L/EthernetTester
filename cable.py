@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 # BLOCKED: GPIO 0, 1, 2, 3 (I2C of the battery pack)
 # FREE   : GPIO 13, 19, 26, 16, 20, 21
@@ -13,19 +14,19 @@ IN_3 = 18  # GPIO 18, PIN 12
 IN_4 = 23  # GPIO 23, PIN 16
 IN_5 = 24  # GPIO 24, PIN 18
 IN_6 = 25  # GPIO 25, PIN 22
-IN_7 = 8  # GPIO 8,  PIN 24
-IN_8 = 7  # GPIO 7,  PIN 26
+IN_7 = 8   # GPIO 8,  PIN 24
+IN_8 = 7   # GPIO 7,  PIN 26
 IN_S = 12  # GPIO 12, PIN 32
 
-OUT_1 = 4  # GPIO 4,  PIN 7
+OUT_1 = 4   # GPIO 4,  PIN 7
 OUT_2 = 17  # GPIO 17, PIN 11
 OUT_3 = 27  # GPIO 27, PIN 13
 OUT_4 = 22  # GPIO 22, PIN 15
 OUT_5 = 10  # GPIO 10, PIN 19
-OUT_6 = 9  # GPIO 9,  PIN 21
+OUT_6 = 9   # GPIO 9,  PIN 21
 OUT_7 = 11  # GPIO 11, PIN 23
-OUT_8 = 5  # GPIO 5,  PIN 29
-OUT_S = 6  # GPIO 6,  PIN 31
+OUT_8 = 5   # GPIO 5,  PIN 29
+OUT_S = 6   # GPIO 6,  PIN 31
 
 PIN_TEST_LENGTH = 2**6 # frames
 
