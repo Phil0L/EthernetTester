@@ -61,4 +61,3 @@ def _update_loop(callback):
         print(f"DEBUG update_count = {update_count}")
         callback(update_count)
         sleep(10)
-
