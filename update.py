@@ -29,6 +29,8 @@ def update():
     stop_signal = True
     print("Launching Updater...")
     code = subprocess.call(["python", f"{os.getcwd()}/updater.py"] + sys.argv)
+    raise RuntimeError("testing error")
+    print(code)
     if code == KW_UP_TO_DATE:
         stop_signal = False
         return
