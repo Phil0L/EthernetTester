@@ -33,6 +33,8 @@ def update():
         stop_signal = False
         return
     print("Restarting...")
+    if KW_DO_UPDATE in sys.argv:
+        sys.argv.remove(KW_DO_UPDATE)
     os.execv(sys.executable, ['python'] + sys.argv + [KW_RESTART, KW_NO_UPDATE_CHECK])
     exit(0)
 
