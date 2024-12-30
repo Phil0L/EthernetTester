@@ -23,7 +23,8 @@ def initialize():
 def check_touch(touch_data):
     try:
         _read, _write, _execute = select.select([touch], [], [])
-        for ev in touch.read():
+        ev = touch.read_one()
+        if ev is not None:
             _parse_event(ev, touch_data, lambda _x, _y: _check_touch_area(_x, _y))
     except IOError:
         print("Error reading touch screen.")
