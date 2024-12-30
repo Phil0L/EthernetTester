@@ -21,6 +21,8 @@ data = Data()
 def pre_update():
     print("Ethernet tester.")
     print(f"Version: {VERSION}")
+    print(f"Current directory is {os.getcwd()}")
+    print(f"Main file is in {os.path.dirname(os.path.realpath(__file__))}")
 
 
 def update_clicked():
