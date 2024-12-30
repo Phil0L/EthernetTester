@@ -27,7 +27,8 @@ def update_check():
 def update():
     global stop_signal
     stop_signal = True
-    code = subprocess.call(["python", "updater.py"], shell=False)
+    print("Launching Updater...")
+    code = subprocess.call(["python", "updater.py"] + sys.argv, shell=False)
     if code == KW_UP_TO_DATE:
         stop_signal = False
         return

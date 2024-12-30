@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-
+import datetime
+import sys
 import git  # pip install gitpython
+
+KW_LOGFILE = "logfile"
 
 
 def pull():
@@ -15,4 +18,8 @@ def pull():
 
 
 if __name__ == '__main__':
+    if KW_LOGFILE in sys.argv:
+        sys.stdout = open('log.txt', 'a')
+        sys.stderr = sys.stdout
+        print(f"UPDATER STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
     exit(pull())

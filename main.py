@@ -14,6 +14,7 @@ from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 
 VERSION = "0.2.10"
 KW_LOGFILE = "logfile"
+LOGFILE = "log.txt"
 data = Data()
 
 
@@ -62,8 +63,11 @@ def loop():
 
 if __name__ == "__main__":
     if KW_LOGFILE in sys.argv:
-        sys.stdout = open('log.txt', 'a')
+        filemode = 'a' if os.path.getsize(LOGFILE) < 3 * 1024 * 1024 else 'w' # max 3 GB
+        sys.stdout = open(LOGFILE, filemode)
         sys.stderr = sys.stdout
+        if filemode == 'w':
+            print("LOGFILE CLEARED due to max size")
         print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
     pre_update()
     if KW_DO_UPDATE in sys.argv:
