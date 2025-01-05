@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import copy
 import os
 import datetime
 import sys
@@ -49,21 +50,20 @@ def start():
 
 
 def loop():
-    last_data = data
+    last_data = copy.deepcopy(data)
     data.frame_count += 1
     data.charge_data.charge = charge.get_charge_percentage()
     data.charge_data.charging = charge.is_charging()
-    data.ipv4 = ethernet.get_ipv4_address()
-    data.ipv6 = ethernet.get_ipv6_address()
-    data.wlan = ethernet.get_wifi_ipv4_address()
-    data.speed = ethernet.get_speed()
+    data.ip_data.ipv4 = ethernet.get_ipv4_address()
+    data.ip_data.ipv6 = ethernet.get_ipv6_address()
+    data.ip_data.wlan = ethernet.get_wifi_ipv4_address()
+    data.ip_data.speed = ethernet.get_speed()
     pin, read = cable.test(data.frame_count)
     data.cable_data[pin] = read
     data.cable_data.pin = pin
     display.draw(data, last=last_data)
     sys.stdout.flush()
     sys.stderr.flush()
-
 
 
 if __name__ == "__main__":
