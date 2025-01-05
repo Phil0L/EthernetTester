@@ -122,17 +122,18 @@ def _draw_left(data: Data):
     left = LEFT + 10
     top = TOP + 30
     screen.blit(font.render("RJ45 tester:", False, WHITE), (left, top))
-    _draw_rj45(left + 20, top + 50)
+    _draw_rj45(left + 20, top + 50, False)
+    _draw_rj45(left + 350, top + 50, True)
 
 
-def _draw_rj45(left, start_top):
+def _draw_rj45(left, start_top, inverted):
     line_width = 5
     line_start = 20
-    line_left = left + 20
+    line_left = left + 20 if not inverted else left - 40
     for top in range(start_top, start_top + 9 * 30, 30):
         index = (top - start_top) // 30
         pygame.draw.line(screen, RJ45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
-        screen.blit(font.render(str(index) if index < 9 else "S", False, WHITE), (left, top))
+        screen.blit(font.render(str(index + 1) if index < 8 else "S", False, WHITE), (left, top))
 
 
 def _draw_right(data: Data):
