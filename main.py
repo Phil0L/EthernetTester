@@ -51,6 +51,8 @@ def start():
 def loop():
     last_data = copy.deepcopy(data)
     data.frame_count += 1
+    print(data)
+    print(last_data)
     data.charge_data.charge = charge.get_charge_percentage()
     data.charge_data.charging = charge.is_charging()
     data.ip_data.ipv4 = ethernet.get_ipv4_address()
