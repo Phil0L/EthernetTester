@@ -3,7 +3,6 @@ import copy
 import os
 import datetime
 import sys
-
 import cable
 import charge
 import display
