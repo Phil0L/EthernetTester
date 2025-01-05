@@ -1,4 +1,3 @@
-import copy
 import json
 
 
@@ -92,5 +91,3 @@ class _Ip:
 
     def __hash__(self):
         return hash((self.ipv4, self.ipv6, self.wlan, self.speed))
-
-
