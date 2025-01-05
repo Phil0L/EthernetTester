@@ -89,7 +89,7 @@ def test(frame):
         current_pin = -1
         current_output = []
         all_off()
-        return -1, []
+        pass
     current_pin = frame // PIN_TEST_LENGTH % 9
     if current_pin == 1:
         GPIO.output(OUT_1, True)

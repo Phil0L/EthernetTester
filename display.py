@@ -122,11 +122,13 @@ def _draw_left(data: Data):
     left = LEFT + 10
     top = TOP + 30
     screen.blit(font.render("RJ45 tester:", False, WHITE), (left, top))
-    _draw_rj45(left + 20, top + 50, False)
-    _draw_rj45(left + 350, top + 50, True)
+    points_left = _draw_rj45(left + 20, top + 50, False)
+    points_right = _draw_rj45(left + 300, top + 50, True)
+    _draw_rj45_connection(points_left, points_right, data)
 
 
 def _draw_rj45(left, start_top, inverted):
+    points = []
     line_width = 5
     line_start = 20
     line_left = left + 20 if not inverted else left - 40
@@ -134,6 +136,20 @@ def _draw_rj45(left, start_top, inverted):
         index = (top - start_top) // 30
         pygame.draw.line(screen, RJ45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
         screen.blit(font.render(str(index + 1) if index < 8 else "S", False, WHITE), (left, top))
+        points.append((line_left + line_start, top + 5) if not inverted else (line_left, top + 5))
+    return points
+
+
+def _draw_rj45_connection(points_left, points_right, data: Data):
+    line_width = 5
+    for key in data.cable:
+        array_index_start = key + 1 if key > 0 else 8
+        start_point = points_left[array_index_start]
+        for value in data.cable[key]:
+            array_index_end = value + 1 if value > 0 else 8
+            end_point = points_right[array_index_end]
+            pygame.draw.line(screen, RED, start_point, end_point, line_width)
+
 
 
 def _draw_right(data: Data):
