@@ -36,13 +36,15 @@ class _Ip:
 
 
 class Data:
-    version = ""
-    frame_count = 0
-    update_count = 0
-    touch_data = _Touch()
-    cable_data = _Cable()
-    charge_data = _Charge()
-    ip_data = _Ip()
+
+    def __int__(self):
+        self.version = ""
+        self.frame_count = 0
+        self.update_count = 0
+        self.touch_data = _Touch()
+        self.cable_data = _Cable()
+        self.charge_data = _Charge()
+        self.ip_data = _Ip()
 
     def __str__(self):
         out = "{"
@@ -68,16 +70,18 @@ class Data:
     def __eq__(self, other):
         return str(self) == str(other)
 
-    def __copy__(self):
-        cls = self.__class__
-        result = cls.__new__(cls)
-        result.__dict__.update(self.__dict__)
-        return result
-
-    def __deepcopy__(self, memo):
-        cls = self.__class__
-        result = cls.__new__(cls)
-        memo[id(self)] = result
-        for k, v in self.__dict__.items():
-            setattr(result, k, copy.deepcopy(v, memo))
-        return result
+    # def __copy__(self):
+    #     cls = self.__class__
+    #     result = cls.__new__(cls)
+    #     result.__dict__.update(self.__dict__)
+    #     return result
+    #
+    # def __deepcopy__(self, memo):
+    #     cls = self.__class__
+    #     result = cls.__new__(cls)
+    #     result.__dict__.update(self.__dict__)
+    #     result.ip_data.__dict__.update(self.ip_data.__dict__)
+    #     result.touch_data.__dict__.update(self.touch_data.__dict__)
+    #     result.charge_data.__dict__.update(self.charge_data.__dict__)
+    #     result.cable_data.__dict__.update(self.cable_data.__dict__)
+    #     return result
