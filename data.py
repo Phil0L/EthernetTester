@@ -1,43 +1,9 @@
-import copy
 import json
-
-
-class _Touch:
-    touch_down_timestamp = 0
-    touch_x_timestamp = 0
-    touch_y_timestamp = 0
-    touch_x_value = 0
-    touch_y_value = 0
-
-
-class _Cable(dict[int, list[int]]):
-    pin = -1
-
-    def __int__(self):
-        super(_Cable, self).__init__()
-
-    def is_empty(self):
-        for key in self:
-            if self[key]:
-                return False
-        return True
-
-
-class _Charge:
-    charge = 0
-    charging = False
-
-
-class _Ip:
-    ipv4 = ""
-    ipv6 = ""
-    wlan = ""
-    speed = ""
 
 
 class Data:
 
-    def __int__(self):
+    def __init__(self):
         self.version = ""
         self.frame_count = 0
         self.update_count = 0
@@ -85,3 +51,44 @@ class Data:
     #     result.charge_data.__dict__.update(self.charge_data.__dict__)
     #     result.cable_data.__dict__.update(self.cable_data.__dict__)
     #     return result
+
+
+class _Touch:
+
+    def __init__(self):
+        self.touch_down_timestamp = 0
+        self.touch_x_timestamp = 0
+        self.touch_y_timestamp = 0
+        self.touch_x_value = 0
+        self.touch_y_value = 0
+
+
+class _Cable(dict[int, list[int]]):
+
+    def __init__(self):
+        super(_Cable, self).__init__()
+        self.pin = -1
+
+    def is_empty(self):
+        for key in self:
+            if self[key]:
+                return False
+        return True
+
+
+class _Charge:
+
+    def __init__(self):
+        self.charge = 0
+        self.charging = False
+
+
+class _Ip:
+
+    def __init__(self):
+        self.ipv4 = ""
+        self.ipv6 = ""
+        self.wlan = ""
+        self.speed = ""
+
+
