@@ -50,6 +50,7 @@ class Data:
             out += f"\"version\": {self.version}, "
         if self.update_count != 0:
             out += f"\"update_count\": {self.update_count}, "
+        out += f"\"frame_count\": {self.frame_count}, "
         # To add: touch
         # To add: charge
         if self.ip_data.ipv4 != "":
