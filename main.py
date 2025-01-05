@@ -61,7 +61,7 @@ def loop():
     pin, read = cable.test(data.frame_count)
     data.cable_data[pin] = read
     data.cable_data.pin = pin
-    display.draw(data, last=last_data)
+    display.draw(data, last_data)
     sys.stdout.flush()
     sys.stderr.flush()
 
