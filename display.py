@@ -129,7 +129,7 @@ def _draw_rj45(left, start_top):
     line_start = 20
     line_left = left + 20
     for top in range(start_top, start_top + 9 * 30, 30):
-        index = (top - start_top) // 9
+        index = ((top - start_top) // 9) - 1
         pygame.draw.line(screen, RJ45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
         screen.blit(font.render(str(index) if index < 9 else "S", False, WHITE), (left, top))
 
