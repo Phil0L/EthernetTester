@@ -21,6 +21,7 @@ class Data:
     wlan = ""
     speed = ""
     cable: dict[int, list[int]] = {}
+    pin = -1
 
     def toJSON(self):
         return json.dumps(self,

@@ -58,6 +58,7 @@ def loop():
     data.speed = ethernet.get_speed()
     pin, read = cable.test(data.frame_count)
     data.cable[pin] = read
+    data.pin = pin
     display.draw(data)
     sys.stdout.flush()
     sys.stderr.flush()
