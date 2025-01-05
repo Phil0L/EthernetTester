@@ -1,3 +1,4 @@
+import copy
 import json
 
 
@@ -33,24 +34,12 @@ class Data:
             out += f"\"pin\": {self.cable_data.pin}, \"cable\": {json.dumps(self.cable_data, indent=0)}"
         return out.replace("\n", "") + "}"
 
-    def __eq__(self, other):
-        return str(self) == str(other)
+    def __hash__(self):
+        return hash((self.version, self.update_count, self.touch_data, self.charge_data, self.cable_data, self.ip_data))
 
-    # def __copy__(self):
-    #     cls = self.__class__
-    #     result = cls.__new__(cls)
-    #     result.__dict__.update(self.__dict__)
-    #     return result
-    #
-    # def __deepcopy__(self, memo):
-    #     cls = self.__class__
-    #     result = cls.__new__(cls)
-    #     result.__dict__.update(self.__dict__)
-    #     result.ip_data.__dict__.update(self.ip_data.__dict__)
-    #     result.touch_data.__dict__.update(self.touch_data.__dict__)
-    #     result.charge_data.__dict__.update(self.charge_data.__dict__)
-    #     result.cable_data.__dict__.update(self.cable_data.__dict__)
-    #     return result
+    def __eq__(self, other):
+        return hash(self) == hash(other)
+
 
 
 class _Touch:
