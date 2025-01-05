@@ -61,7 +61,7 @@ class _Cable(dict[int, list[int]]):
         self.pin = -1
 
     def __hash__(self):
-        return hash((self.items(), self.pin))
+        return hash((self.values(), self.pin))
 
     def is_empty(self):
         for key in self:
