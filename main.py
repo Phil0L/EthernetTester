@@ -15,7 +15,7 @@ from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 VERSION = "0.2.11"
 KW_LOGFILE = "logfile"
 LOGFILE = "log.txt"
-data = Data()
+current_data = Data()
 
 
 def pre_update():
@@ -34,35 +34,35 @@ def console_clicked():
 
 
 def updates_counted(update_count):
-    data.update_count = update_count
+    current_data.update_count = update_count
 
 
 def start():
     print("Started. Ctrl+C to quit.")
-    data.version = VERSION
+    current_data.version = VERSION
     display.initialize()
     display.on_update_clicked(lambda: update_clicked())
     display.on_console_clicked(lambda: console_clicked())
     touch.initialize()
     update.start_update_loop(lambda update_count: updates_counted(update_count))
-    touch.start_touch_loop(data.touch_data)
+    touch.start_touch_loop(current_data.touch_data)
 
 
 def loop():
-    last_data = copy.deepcopy(data)
-    data.frame_count += 1
-    print(data)
+    last_data = copy.deepcopy(current_data)
+    current_data.frame_count += 1
+    print(current_data)
     print(last_data)
-    data.charge_data.charge = charge.get_charge_percentage()
-    data.charge_data.charging = charge.is_charging()
-    data.ip_data.ipv4 = ethernet.get_ipv4_address()
-    data.ip_data.ipv6 = ethernet.get_ipv6_address()
-    data.ip_data.wlan = ethernet.get_wifi_ipv4_address()
-    data.ip_data.speed = ethernet.get_speed()
-    pin, read = cable.test(data.frame_count)
-    data.cable_data[pin] = read
-    data.cable_data.pin = pin
-    display.draw(data, last_data)
+    current_data.charge_data.charge = charge.get_charge_percentage()
+    current_data.charge_data.charging = charge.is_charging()
+    current_data.ip_data.ipv4 = ethernet.get_ipv4_address()
+    current_data.ip_data.ipv6 = ethernet.get_ipv6_address()
+    current_data.ip_data.wlan = ethernet.get_wifi_ipv4_address()
+    current_data.ip_data.speed = ethernet.get_speed()
+    pin, read = cable.test(current_data.frame_count)
+    current_data.cable_data[pin] = read
+    current_data.cable_data.pin = pin
+    display.draw(current_data, last_data)
     sys.stdout.flush()
     sys.stderr.flush()
 
@@ -79,9 +79,9 @@ if __name__ == "__main__":
     if KW_DO_UPDATE in sys.argv:
         update.update()
     elif KW_NO_UPDATE_CHECK not in sys.argv:
-        data.update_count = update.update_check()
-        if data.update_count > 0:
-            print(f"{data.update_count} updates available. Run 'python main.py update' to update")
+        current_data.update_count = update.update_check()
+        if current_data.update_count > 0:
+            print(f"{current_data.update_count} updates available. Run 'python main.py update' to update")
     start()
     while True:
         loop()
