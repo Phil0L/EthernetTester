@@ -117,12 +117,15 @@ def _draw_left(data: Data):
     left = LEFT + 10
     top = TOP + 30
     screen.blit(font.render("RJ45 tester:", False, WHITE), (left, top))
-    _draw_rj45(left, top)
+    _draw_rj45(left + 20, top + 50)
 
 
 def _draw_rj45(left, top):
-    line_width = 5
-    pygame.draw.line(screen, GREEN, (left, top), (left + 3, top), line_width)
+    line_width = 20
+    line_start = 5
+    line_left = left + 30
+    pygame.draw.line(screen, GREEN, (line_left, top), (line_left + line_start, top), line_width)
+    screen.blit(font.render("1", False, WHITE), (left, top))
 
 
 def _draw_right(data: Data):
