@@ -114,6 +114,15 @@ def _draw_charge(data: Data):
 def _draw_left(data: Data):
     screen.fill(WHITE, Rect(LEFT+3, TOP+25, 397, BOTTOM-30))
     screen.fill(BLACK, Rect(LEFT+3, TOP+25, 397, BOTTOM-30).inflate(-2 * 2, -2 * 2))
+    left = LEFT + 10
+    top = TOP + 30
+    screen.blit(font.render("RJ45 tester:", False, WHITE), (left, top))
+    _draw_rj45(left, top)
+
+
+def _draw_rj45(left, top):
+    line_width = 5
+    pygame.draw.line(screen, GREEN, (left, top), (left + 3, top), line_width)
 
 
 def _draw_right(data: Data):
