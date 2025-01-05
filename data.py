@@ -41,7 +41,6 @@ class Data:
         return hash(self) == hash(other)
 
 
-
 class _Touch:
 
     def __init__(self):
@@ -51,12 +50,18 @@ class _Touch:
         self.touch_x_value = 0
         self.touch_y_value = 0
 
+    def __hash__(self):
+        return hash((self.touch_down_timestamp, self.touch_x_timestamp, self.touch_y_timestamp, self.touch_x_value, self.touch_y_value))
+
 
 class _Cable(dict[int, list[int]]):
 
     def __init__(self):
         super(_Cable, self).__init__()
         self.pin = -1
+
+    def __hash__(self):
+        return hash((self.items(), self.pin))
 
     def is_empty(self):
         for key in self:
@@ -71,6 +76,9 @@ class _Charge:
         self.charge = 0
         self.charging = False
 
+    def __hash__(self):
+        return hash((self.charge, self.charging))
+
 
 class _Ip:
 
@@ -79,5 +87,8 @@ class _Ip:
         self.ipv6 = ""
         self.wlan = ""
         self.speed = ""
+
+    def __hash__(self):
+        return hash((self.ipv4, self.ipv6, self.wlan, self.speed))
 
 
