@@ -45,16 +45,15 @@ def initialize():
     pygame.font.init()
     font = pygame.font.SysFont(pygame.font.get_default_font(), 30)
     small_font = pygame.font.SysFont(pygame.font.get_default_font(), 23)
-    draw(Data())
+    draw(Data(), Data())
 
 
-def draw(data: Data):
+def draw(data: Data, last: Data):
     screen.fill(BLACK)
     if data is None:
         return
-    json = data.toJSON().replace('\n', '')
-    if data.frame_count % 300 == 0:
-        print(f"DEBUG data to draw = {json}")
+    if data != last:
+        print(f"DEBUG draw data: {str(data)}")
     screen.blit(font.render(f"Ethernet tester v {data.version}", False, WHITE), (LEFT + 3, TOP + 3))
     _draw_update(data)
     _draw_console(data)
@@ -110,10 +109,10 @@ def _draw_console(data: Data):
 
 
 def _draw_charge(data: Data):
-    if data.charging:
-        screen.blit(font.render("{:3.1f}%+".format(data.charge), False, WHITE), (RIGHT-80, TOP+3))
+    if data.charge_data.charging:
+        screen.blit(font.render("{:3.1f}%+".format(data.charge_data.charge), False, WHITE), (RIGHT-80, TOP+3))
     else:
-        screen.blit(font.render("{:3.1f}%".format(data.charge), False, WHITE), (RIGHT-65, TOP+3))
+        screen.blit(font.render("{:3.1f}%".format(data.charge_data.charge), False, WHITE), (RIGHT-65, TOP+3))
 
 
 def _draw_left(data: Data):
@@ -135,17 +134,17 @@ def _draw_rj45(left, start_top, inverted, data: Data):
     for top in range(start_top, start_top + 9 * 30, 30):
         index = (top - start_top) // 30
         pygame.draw.line(screen, RJ45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
-        screen.blit(font.render(str(index + 1) if index < 8 else "S", False, GREEN if data.pin == index + 1 % 9 and not inverted else WHITE), (left, top))
+        screen.blit(font.render(str(index + 1) if index < 8 else "S", False, GREEN if data.cable_data.pin == index + 1 % 9 and not inverted else WHITE), (left, top))
         points.append((line_left + line_start, top + 5) if not inverted else (line_left, top + 5))
     return points
 
 
 def _draw_rj45_connection(points_left, points_right, data: Data):
     line_width = 5
-    for key in data.cable:
+    for key in data.cable_data:
         array_index_start = key - 1 if key > 0 else 8
         start_point = points_left[array_index_start]
-        for value in data.cable[key]:
+        for value in data.cable_data[key]:
             array_index_end = value - 1 if value > 0 else 8
             end_point = points_right[array_index_end]
             is_correct = array_index_start == array_index_end
@@ -159,8 +158,8 @@ def _draw_right(data: Data):
     top = TOP+30
     screen.blit(font.render("IP tester:", False, WHITE), (left, top))
     screen.blit(font.render("IP v4 address:", False, WHITE), (left, top+40))
-    screen.blit(small_font.render(data.ipv4 if data.ipv4 != "" else data.wlan, False, GREEN if data.ipv4 != "" else RED), (left, top+65))
+    screen.blit(small_font.render(data.ip_data.ipv4 if data.ip_data.ipv4 != "" else data.ip_data.wlan, False, GREEN if data.ip_data.ipv4 != "" else RED), (left, top+65))
     screen.blit(font.render("IP v6 address:", False, WHITE), (left, top+105))
-    screen.blit(small_font.render(data.ipv6, False, GREEN), (left, top+130))
+    screen.blit(small_font.render(data.ip_data.ipv6, False, GREEN), (left, top+130))
     screen.blit(font.render("Speed:", False, WHITE), (left, top+170))
-    screen.blit(small_font.render(data.speed, False, GREEN), (left, top+195))
+    screen.blit(small_font.render(data.ip_data.speed, False, GREEN), (left, top+195))

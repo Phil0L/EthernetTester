@@ -12,7 +12,7 @@ import update
 from data import Data
 from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.10"
+VERSION = "0.2.11"
 KW_LOGFILE = "logfile"
 LOGFILE = "log.txt"
 data = Data()
@@ -49,19 +49,21 @@ def start():
 
 
 def loop():
+    last_data = data
     data.frame_count += 1
-    data.charge = charge.get_charge_percentage()
-    data.charging = charge.is_charging()
+    data.charge_data.charge = charge.get_charge_percentage()
+    data.charge_data.charging = charge.is_charging()
     data.ipv4 = ethernet.get_ipv4_address()
     data.ipv6 = ethernet.get_ipv6_address()
     data.wlan = ethernet.get_wifi_ipv4_address()
     data.speed = ethernet.get_speed()
     pin, read = cable.test(data.frame_count)
-    data.cable[pin] = read
-    data.pin = pin
-    display.draw(data)
+    data.cable_data[pin] = read
+    data.cable_data.pin = pin
+    display.draw(data, last=last_data)
     sys.stdout.flush()
     sys.stderr.flush()
+
 
 
 if __name__ == "__main__":
