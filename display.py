@@ -52,6 +52,9 @@ def draw(data: Data, last: Data):
     screen.fill(BLACK)
     if data is None:
         return
+    print(data.frame_count)
+    print(data)
+    print(last)
     if data != last:
         print(f"DEBUG draw data: {str(data)}")
     screen.blit(font.render(f"Ethernet tester v {data.version}", False, WHITE), (LEFT + 3, TOP + 3))
