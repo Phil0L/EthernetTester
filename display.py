@@ -121,10 +121,10 @@ def _draw_left(data: Data):
 
 
 def _draw_rj45(left, top):
-    line_width = 20
-    line_start = 5
+    line_width = 5
+    line_start = 20
     line_left = left + 30
-    pygame.draw.line(screen, GREEN, (line_left, top), (line_left + line_start, top), line_width)
+    pygame.draw.line(screen, GREEN, (line_left, top + 5), (line_left + line_start, top + 5), line_width)
     screen.blit(font.render("1", False, WHITE), (left, top))
 
 
