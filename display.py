@@ -120,12 +120,13 @@ def _draw_left(data: Data):
     _draw_rj45(left + 20, top + 50)
 
 
-def _draw_rj45(left, top):
+def _draw_rj45(left, start_top):
     line_width = 5
     line_start = 20
-    line_left = left + 30
-    pygame.draw.line(screen, GREEN, (line_left, top + 5), (line_left + line_start, top + 5), line_width)
-    screen.blit(font.render("1", False, WHITE), (left, top))
+    line_left = left + 20
+    for top in range(start_top, start_top + 9 * 30, 30):
+        pygame.draw.line(screen, GREEN, (line_left, top + 5), (line_left + line_start, top + 5), line_width)
+        screen.blit(font.render("1", False, WHITE), (left, top))
 
 
 def _draw_right(data: Data):
