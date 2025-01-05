@@ -143,13 +143,12 @@ def _draw_rj45(left, start_top, inverted):
 def _draw_rj45_connection(points_left, points_right, data: Data):
     line_width = 5
     for key in data.cable:
-        array_index_start = key + 1 if key > 0 else 8
+        array_index_start = key - 1 if key > 0 else 8
         start_point = points_left[array_index_start]
         for value in data.cable[key]:
             array_index_end = value + 1 if value > 0 else 8
             end_point = points_right[array_index_end]
             pygame.draw.line(screen, RED, start_point, end_point, line_width)
-
 
 
 def _draw_right(data: Data):
