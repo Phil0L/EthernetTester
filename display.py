@@ -148,7 +148,8 @@ def _draw_rj45_connection(points_left, points_right, data: Data):
         for value in data.cable[key]:
             array_index_end = value - 1 if value > 0 else 8
             end_point = points_right[array_index_end]
-            pygame.draw.line(screen, RED, start_point, end_point, line_width)
+            is_correct = array_index_start == array_index_end
+            pygame.draw.line(screen, RJ45[array_index_start] if is_correct else RED, start_point, end_point, line_width)
 
 
 def _draw_right(data: Data):
