@@ -19,6 +19,10 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (30, 200, 80)
 RED = (220, 0, 0)
+ORANGE = (241, 130, 30)
+BLUE = (52, 77, 160)
+BROWN = (123, 84, 33)
+RJ45 = [WHITE, ORANGE, WHITE, BLUE, WHITE, GREEN, WHITE, BROWN]
 
 screen: Surface
 font: Font
@@ -125,8 +129,9 @@ def _draw_rj45(left, start_top):
     line_start = 20
     line_left = left + 20
     for top in range(start_top, start_top + 9 * 30, 30):
-        pygame.draw.line(screen, GREEN, (line_left, top + 5), (line_left + line_start, top + 5), line_width)
-        screen.blit(font.render("1", False, WHITE), (left, top))
+        index = (top - start_top) // 9
+        pygame.draw.line(screen, RJ45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
+        screen.blit(font.render(str(index) if index < 9 else "S", False, WHITE), (left, top))
 
 
 def _draw_right(data: Data):
