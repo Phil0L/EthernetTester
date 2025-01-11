@@ -24,8 +24,9 @@ def check_touch(touch_data):
     try:
         _read, _write, _execute = select.select([touch], [], [])
         ev = touch.read_one()
-        if ev is not None:
+        while ev is not None:
             _parse_event(ev, touch_data, lambda _x, _y: _check_touch_area(_x, _y))
+            ev = touch.read_one()
     except IOError:
         print("Error reading touch screen.")
 
@@ -66,7 +67,7 @@ class TouchArea:
         self.callback = callback
 
     def is_inside(self, x, y):
-        print(f"DEBUG {self.left} < {x} < {self.right} | {self.top} < {y} < {self.bottom}")
+        # print(f"DEBUG {self.left} < {x} < {self.right} | {self.top} < {y} < {self.bottom}")
         return self.left < x < self.right and self.top < y < self.bottom
 
     def execute(self):
@@ -84,12 +85,3 @@ def _check_touch_area(x, y):
             print(f"DEBUG touch area hit")
             touch_area.execute()
 
-
-def start_touch_loop(touch_data):
-    thread = threading.Thread(target=_touch_loop, args=(touch_data,))
-    thread.start()
-
-
-def _touch_loop(data):
-    while not stop_signal:
-        check_touch(data)

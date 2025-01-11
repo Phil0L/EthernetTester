@@ -45,7 +45,6 @@ def start():
     display.on_console_clicked(lambda: console_clicked())
     touch.initialize()
     update.start_update_loop(lambda update_count: updates_counted(update_count))
-    touch.start_touch_loop(current_data.touch_data)
 
 
 def loop():
@@ -57,6 +56,7 @@ def loop():
     current_data.ip_data.ipv6 = ethernet.get_ipv6_address()
     current_data.ip_data.wlan = ethernet.get_wifi_ipv4_address()
     current_data.ip_data.speed = ethernet.get_speed()
+    touch.check_touch(current_data.touch_data)
     pin, read = cable.test(current_data.frame_count)
     current_data.cable_data[pin] = read
     current_data.cable_data.pin = pin
