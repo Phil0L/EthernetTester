@@ -25,20 +25,12 @@ def pre_update():
     print(f"Main file is in {os.path.dirname(os.path.realpath(__file__))}")
 
 
-def update_clicked():
-    update.update()
-
-
-def console_clicked():
-    pass
-
-
-def start():
+def start(): # after update
     print("Started. Ctrl+C to quit.")
     current_data.version = VERSION
     display.initialize()
-    display.on_update_clicked(lambda: update_clicked())
-    display.on_console_clicked(lambda: console_clicked())
+    display.on_update_clicked(lambda: update.update())
+    display.on_console_clicked(lambda: None)
     touch.initialize()
 
 
