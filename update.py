@@ -3,8 +3,8 @@ import os
 import subprocess
 import sys
 import threading
-from time import sleep
 from git import Repo, GitCommandError  # pip install gitpython
+from data import Data
 
 KW_RESTART = 'restart'
 KW_NO_UPDATE_CHECK = 'no_update'
@@ -12,26 +12,23 @@ KW_DO_UPDATE = "update"
 KW_UP_TO_DATE = 3
 GITHUB_BRANCH = "origin/main"
 
-stop_signal = False
+executor: threading.Thread
+update_count = 0
 
 
-def update_check():
+def status():
     try:
-        update_count = status()
-        return update_count
+        return _status()
     except GitCommandError as e:
         print(e)
         return 0
 
 
 def update():
-    global stop_signal
-    stop_signal = True
     print("Launching Updater...")
     code = subprocess.call(["python", f"{os.getcwd()}/updater.py"] + sys.argv)
     print(code)
     if code == KW_UP_TO_DATE:
-        stop_signal = False
         return
     print("Restarting...")
     if KW_DO_UPDATE in sys.argv:
@@ -40,7 +37,7 @@ def update():
     exit(0)
 
 
-def status():
+def _status():
     git_dir = "."
     repo = Repo(git_dir)
     repo.remotes.origin.fetch()
@@ -51,14 +48,15 @@ def status():
     return count
 
 
-def start_update_loop(callback):
-    thread = threading.Thread(target=_update_loop, args=(callback,))
-    thread.start()
+def check_update(data: Data):
+    global executor
+    if executor is None or not executor.isAlive():
+        executor = threading.Thread(target=_check_update())
+        executor.start()
+    data.update_count = update_count
 
 
-def _update_loop(callback):
-    while not stop_signal:
-        update_count = update_check()
-        print(f"DEBUG update_count = {update_count}")
-        callback(update_count)
-        sleep(10)
+def _check_update():
+    global update_count
+    update_count = status()
+    print(f"DEBUG update_count = {update_count}")

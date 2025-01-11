@@ -33,10 +33,6 @@ def console_clicked():
     pass
 
 
-def updates_counted(update_count):
-    current_data.update_count = update_count
-
-
 def start():
     print("Started. Ctrl+C to quit.")
     current_data.version = VERSION
@@ -44,7 +40,6 @@ def start():
     display.on_update_clicked(lambda: update_clicked())
     display.on_console_clicked(lambda: console_clicked())
     touch.initialize()
-    update.start_update_loop(lambda update_count: updates_counted(update_count))
 
 
 def loop():
@@ -57,6 +52,7 @@ def loop():
     current_data.ip_data.wlan = ethernet.get_wifi_ipv4_address()
     current_data.ip_data.speed = ethernet.get_speed()
     touch.check_touch(current_data.touch_data)
+    update.check_update(current_data)
     pin, read = cable.test(current_data.frame_count)
     current_data.cable_data[pin] = read
     current_data.cable_data.pin = pin
@@ -77,7 +73,7 @@ if __name__ == "__main__":
     if KW_DO_UPDATE in sys.argv:
         update.update()
     elif KW_NO_UPDATE_CHECK not in sys.argv:
-        current_data.update_count = update.update_check()
+        current_data.update_count = update.status()
         if current_data.update_count > 0:
             print(f"{current_data.update_count} updates available. Run 'python main.py update' to update")
     start()
