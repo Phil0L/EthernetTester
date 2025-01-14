@@ -39,6 +39,9 @@ def _check_touch(touch_data):
             ev = touch.read_one()
     except IOError:
         print("Error reading touch screen.")
+    except:
+        print("Touch thread stopped.")
+        exit(1)
 
 
 def _parse_event(event, data, click_callback):

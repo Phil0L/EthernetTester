@@ -3,7 +3,7 @@ import os
 import subprocess
 import sys
 import threading
-from git import Repo, GitCommandError  # pip install gitpython
+from git import Repo, GitCommandError, GitError  # pip install gitpython
 from data import Data
 
 KW_RESTART = 'restart'
@@ -56,5 +56,11 @@ def check_update(data: Data):
 
 
 def _check_update():
-    global update_count
-    update_count = status()
+    try:
+        global update_count
+        update_count = status()
+    except GitError:
+        print("Error reading git status.")
+    except:
+        print("Update thread stopped.")
+        exit(1)
