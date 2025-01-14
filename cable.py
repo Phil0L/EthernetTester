@@ -78,15 +78,20 @@ def all_off():
 current_pin = 0
 current_output = []
 current_pin_start = 0
+speed_up = False
+speed_up_count = 0
 
 
 def test(data):
     global current_pin
     global current_output
     global current_pin_start
+    global speed_up
+    global speed_up_count
 
     frame = data.frame_count
-    pin_test_length = int(data.frames_per_second)
+    fps = int(data.frames_per_second)
+    pin_test_length = fps // 10 if speed_up else fps
     if pin_test_length == 0:
         pin_test_length = 2**8
     # test each pin for 3/4 second, then wait 1/4 second
@@ -94,6 +99,11 @@ def test(data):
     if frame - current_pin_start > pin_test_length:
         current_pin = (current_pin + 1) % 9
         current_pin_start = frame
+        if speed_up:
+            speed_up_count += 1
+        if speed_up_count >= 10:
+            speed_up_count = 0
+            speed_up = False
     if frame - current_pin_start < pin_test_length // 4:
         # reset
         current_output = []
@@ -119,6 +129,9 @@ def test(data):
     if current_pin == 0:
         GPIO.output(OUT_S, True)
     current_output = _read(current_output)
+    last_output = data.cable_data[current_pin]
+    if len(last_output) != len(current_output) and not speed_up:
+        speed_up = True
     if len(current_output) == 9: # unplugged
         return current_pin, []
     return current_pin, current_output
