@@ -129,7 +129,7 @@ def test(data):
     if current_pin == 0:
         GPIO.output(OUT_S, True)
     current_output = _read(current_output)
-    last_output = data.cable_data[current_pin]
+    last_output = data.cable_data.get(current_pin, [])
     if len(last_output) != len(current_output) and not speed_up:
         speed_up = True
     if len(current_output) == 9: # unplugged
