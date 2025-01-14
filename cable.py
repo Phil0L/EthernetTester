@@ -91,7 +91,7 @@ def test(data):
 
     frame = data.frame_count
     fps = int(data.frames_per_second)
-    pin_test_length = fps // 2 if speed_up else fps
+    pin_test_length = fps // 4 if speed_up else fps
     if pin_test_length == 0:
         pin_test_length = 2**8
     # test each pin for 3/4 second, then wait 1/4 second
@@ -101,7 +101,7 @@ def test(data):
         current_pin_start = frame
         if speed_up:
             speed_up_count += 1
-        if speed_up_count >= 10:
+        if speed_up_count >= 9:
             speed_up_count = 0
             speed_up = False
     if frame - current_pin_start < pin_test_length // 4:
