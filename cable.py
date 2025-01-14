@@ -84,7 +84,9 @@ def test(data):
     global current_output
     frame = data.frame_count
     pin_test_length = int(data.frames_per_second)
-    # test each pin for 6 frames, then wait 2 frames
+    if pin_test_length == 0:
+        pin_test_length = 2**8
+    # test each pin for 3/4 second, then wait 1/4 second
     # measure each voltage at each frame
     if frame % pin_test_length < pin_test_length // 4:
         # reset
@@ -92,7 +94,7 @@ def test(data):
         current_output = []
         all_off()
         pass
-    current_pin = frame // pin_test_length % 9
+    current_pin = (frame // pin_test_length) % 9
     if current_pin == 1:
         GPIO.output(OUT_1, True)
     if current_pin == 2:
