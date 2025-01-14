@@ -218,7 +218,7 @@ def line(_screen, color: tuple, start, end, width):
     color2 = color[3:5]
     step_length = 2 * width
     length = math.sqrt((start[0]-end[0])**2 + (start[1]-end[1])**2)
-    steps = length/step_length
+    steps = int(length/step_length)
     vector = (start[0]-end[0], start[0]-end[0])
     vector_norm = (vector[0]/length, vector[1]/length)
     for i in range(steps):
