@@ -23,7 +23,7 @@ def initialize():
     touch.grab()
 
 
-def check_update(data: Data):
+def check_touch(data: Data):
     global executor
     if executor is None or not executor.isAlive():
         executor = threading.Thread(target=_check_touch(data.touch_data))
