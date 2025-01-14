@@ -75,28 +75,31 @@ def all_off():
     GPIO.output(OUT_S, False)
 
 
-current_pin = -1
+current_pin = 0
 current_output = []
+current_pin_start = 0
 
 
 def test(data):
     global current_pin
     global current_output
+    global current_pin_start
+
     frame = data.frame_count
     pin_test_length = int(data.frames_per_second)
     if pin_test_length == 0:
         pin_test_length = 2**8
     # test each pin for 3/4 second, then wait 1/4 second
     # measure each voltage at each frame
-    if frame % pin_test_length < pin_test_length // 4:
+    if frame - current_pin_start > pin_test_length:
+        current_pin = (current_pin + 1) % 9
+        current_pin_start = frame
+    if frame - current_pin_start < pin_test_length // 4:
         # reset
-        current_pin = -1
         current_output = []
         all_off()
         pass
-    new_pin = (frame // pin_test_length) % 9
-    if new_pin >= current_pin or current_pin == -1:
-        current_pin = new_pin
+
     if current_pin == 1:
         GPIO.output(OUT_1, True)
     if current_pin == 2:
