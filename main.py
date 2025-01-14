@@ -81,7 +81,7 @@ if __name__ == "__main__":
             loop()
     except KeyboardInterrupt:
         print("Application stopped.")
-        sys.exit(0)
+        os._exit(0)
     except:
         print("Application error occurred:", sys.exc_info()[0])
-        sys.exit(1)
+        os._exit(1)
