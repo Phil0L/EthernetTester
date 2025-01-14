@@ -27,7 +27,7 @@ def pre_update():
     print(f"Main file is in {os.path.dirname(os.path.realpath(__file__))}")
 
 
-def start(): # after update
+def start():  # after update
     print("Started. Ctrl+C to quit.")
     current_data.version = VERSION
     current_data.frame_start = time.time_ns()
@@ -61,20 +61,27 @@ def loop():
 
 
 if __name__ == "__main__":
-    if KW_LOGFILE in sys.argv:
-        filemode = 'a' if os.path.getsize(LOGFILE) < 3 * 1024 * 1024 else 'w' # max 3 GB
-        sys.stdout = open(LOGFILE, filemode)
-        sys.stderr = sys.stdout
-        if filemode == 'w':
-            print("LOGFILE CLEARED due to max size")
-        print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
-    pre_update()
-    if KW_DO_UPDATE in sys.argv:
-        update.update()
-    elif KW_NO_UPDATE_CHECK not in sys.argv:
-        current_data.update_count = update.status()
-        if current_data.update_count > 0:
-            print(f"{current_data.update_count} updates available. Run 'python main.py update' to update")
-    start()
-    while True:
-        loop()
+    try:
+        if KW_LOGFILE in sys.argv:
+            filemode = 'a' if os.path.getsize(LOGFILE) < 3 * 1024 * 1024 else 'w'  # max 3 GB
+            sys.stdout = open(LOGFILE, filemode)
+            sys.stderr = sys.stdout
+            if filemode == 'w':
+                print("LOGFILE CLEARED due to max size")
+            print(f"APPLICATION STARTED AT {datetime.datetime.now().strftime('%I:%M  %B %d, %Y')}")
+        pre_update()
+        if KW_DO_UPDATE in sys.argv:
+            update.update()
+        elif KW_NO_UPDATE_CHECK not in sys.argv:
+            current_data.update_count = update.status()
+            if current_data.update_count > 0:
+                print(f"{current_data.update_count} updates available. Run 'python main.py update' to update")
+        start()
+        while True:
+            loop()
+    except KeyboardInterrupt:
+        print("Application stopped.")
+        exit(0)
+    except:
+        print("Application error occurred:", sys.exc_info()[0])
+        exit(1)
