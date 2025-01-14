@@ -80,12 +80,8 @@ if __name__ == "__main__":
         while True:
             loop()
     except KeyboardInterrupt:
-        touch.executor_touch.raise_exception()
-        update.executor_update.raise_exception()
         print("Application stopped.")
-        exit(0)
+        sys.exit(0)
     except:
-        touch.executor_touch.raise_exception()
-        update.executor_update.raise_exception()
         print("Application error occurred:", sys.exc_info()[0])
-        exit(1)
+        sys.exit(1)
