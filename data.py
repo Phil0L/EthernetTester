@@ -64,7 +64,7 @@ class _Cable(dict[int, list[int]]):
     def __init__(self):
         super(_Cable, self).__init__()
         self.pin = -1
-        self.mode = "A"
+        self.mode = "B"
 
     def __hash__(self):
         if self.is_empty():

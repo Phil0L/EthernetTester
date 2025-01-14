@@ -23,7 +23,8 @@ RED = (220, 0, 0)
 ORANGE = (241, 130, 30)
 BLUE = (52, 77, 160)
 BROWN = (123, 84, 33)
-RJ45 = [WHITE, ORANGE, WHITE, BLUE, WHITE, GREEN, WHITE, BROWN, GRAY]
+T568A = [WHITE, GREEN, WHITE, BLUE, WHITE, ORANGE, WHITE, BROWN, GRAY]
+T568B = [WHITE, ORANGE, WHITE, BLUE, WHITE, GREEN, WHITE, BROWN, GRAY]
 
 screen: Surface
 font: Font
@@ -153,18 +154,20 @@ def _draw_left(data: Data):
 
 def _draw_rj45(left, start_top, inverted, data: Data):
     points = []
+    rj45 = T568A if data.cable_data.mode == "A" else T568B
     line_width = 5
     line_start = 20
     line_left = left + 20 if not inverted else left - 40
     for top in range(start_top, start_top + 9 * 30, 30):
         index = (top - start_top) // 30
-        pygame.draw.line(screen, RJ45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
+        pygame.draw.line(screen, rj45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
         screen.blit(font.render(str(index + 1) if index < 8 else "S", False, GREEN if data.cable_data.pin == (index + 1) % 9 and not inverted else WHITE), (left, top))
         points.append((line_left + line_start, top + 5) if not inverted else (line_left, top + 5))
     return points
 
 
 def _draw_rj45_connection(points_left, points_right, data: Data):
+    rj45 = T568A if data.cable_data.mode == "A" else T568B
     line_width = 5
     for key in data.cable_data:
         array_index_start = key - 1 if key > 0 else 8
@@ -173,7 +176,7 @@ def _draw_rj45_connection(points_left, points_right, data: Data):
             array_index_end = value - 1 if value > 0 else 8
             end_point = points_right[array_index_end]
             is_correct = array_index_start == array_index_end
-            pygame.draw.line(screen, RJ45[array_index_start] if is_correct else RED, start_point, end_point, line_width)
+            pygame.draw.line(screen, rj45[array_index_start] if is_correct else RED, start_point, end_point, line_width)
 
 
 def _draw_rj45_mode(left, top, data: Data):
