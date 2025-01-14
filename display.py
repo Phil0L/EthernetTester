@@ -215,8 +215,8 @@ def line(_screen, color: tuple, start, end, width):
         pygame.draw.line(_screen, color, start, end, width)
         return
     print(color)
-    color1 = color[0:2]
-    color2 = color[3:5]
+    color1 = color[0]
+    color2 = color[1]
     print(color1)
     print(color2)
     step_length = 2 * width
