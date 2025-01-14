@@ -30,6 +30,8 @@ font: Font
 small_font: Font
 console_area = TouchArea(RIGHT-195, TOP, RIGHT-100, TOP+30, lambda: _console_clicked())
 update_area = TouchArea(RIGHT-280, TOP, RIGHT-200, TOP+30, lambda: _update_clicked())
+t568a_area = TouchArea(LEFT+30, BOTTOM-50, LEFT+80, BOTTOM-30, lambda: None)
+t568b_area = TouchArea(LEFT+80, BOTTOM-50, LEFT+130, BOTTOM-30, lambda: None)
 update_callback = None
 console_callback = None
 
@@ -124,6 +126,7 @@ def _draw_left(data: Data):
     points_left = _draw_rj45(left + 20, top + 50, False, data)
     points_right = _draw_rj45(left + 300, top + 50, True, data)
     _draw_rj45_connection(points_left, points_right, data)
+    _draw_rj45_mode(left + 20, BOTTOM-70, data)
 
 
 def _draw_rj45(left, start_top, inverted, data: Data):
@@ -149,6 +152,21 @@ def _draw_rj45_connection(points_left, points_right, data: Data):
             end_point = points_right[array_index_end]
             is_correct = array_index_start == array_index_end
             pygame.draw.line(screen, RJ45[array_index_start] if is_correct else RED, start_point, end_point, line_width)
+
+
+def _draw_rj45_mode(left, top, data: Data):
+    # screen.fill(GREEN, t568a_area.to_rect())
+    # screen.fill(BLACK, t568a_area.to_rect().inflate(-2 * 2, -2 * 2))
+    # screen.fill(RED, t568b_area.to_rect())
+    # screen.fill(BLACK, t568b_area.to_rect().inflate(-2 * 2, -2 * 2))
+    font.set_underline(True)
+    screen.blit(font.render("T-568A", False, WHITE), (left + 5, top + 3))
+    screen.blit(font.render("T-568B", False, WHITE), (left + 55, top + 3))
+    if t568a_area not in touch.touch_areas:
+        touch.touch_areas.append(t568a_area)
+    if t568b_area not in touch.touch_areas:
+        touch.touch_areas.append(t568b_area)
+    font.set_underline(False)
 
 
 def _draw_right(data: Data):
