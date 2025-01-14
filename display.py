@@ -61,6 +61,7 @@ def draw(data: Data, last: Data):
     if data != last:
         print(f"DEBUG draw data: {str(data)}")
     screen.blit(font.render(f"Ethernet tester v {data.version}", False, WHITE), (LEFT + 3, TOP + 3))
+    screen.blit(font.render(f"{int(data.frames_per_second)} fps", False, WHITE), (LEFT + 300, TOP + 3))
     _draw_update(data)
     _draw_console(data)
     _draw_charge(data)
