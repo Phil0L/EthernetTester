@@ -14,7 +14,7 @@ DISPLAY_TOUCH = "/dev/input/event0"
 touch: Any
 touch_areas = []
 stop_signal = False
-executor: threading.Thread
+executor: threading.Thread or None = None
 
 
 def initialize():
