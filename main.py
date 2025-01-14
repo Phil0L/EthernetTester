@@ -52,7 +52,7 @@ def loop():
     current_data.ip_data.speed = ethernet.get_speed()
     touch.check_touch(current_data)
     update.check_update(current_data)
-    pin, read = cable.test(current_data.frame_count)
+    pin, read = cable.test(current_data)
     current_data.cable_data[pin] = read
     current_data.cable_data.pin = pin
     display.draw(current_data, last_data)
