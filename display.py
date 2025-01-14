@@ -30,8 +30,8 @@ font: Font
 small_font: Font
 console_area = TouchArea(RIGHT-195, TOP, RIGHT-100, TOP+30, lambda: _console_clicked())
 update_area = TouchArea(RIGHT-280, TOP, RIGHT-200, TOP+30, lambda: _update_clicked())
-t568a_area = TouchArea(LEFT+30, BOTTOM-100, LEFT+130, BOTTOM-50, lambda: None)
-t568b_area = TouchArea(LEFT+130, BOTTOM-100, LEFT+230, BOTTOM-50, lambda: None)
+t568a_area = TouchArea(LEFT+60, BOTTOM-140, LEFT+160, BOTTOM-90, lambda: None)
+t568b_area = TouchArea(LEFT+160, BOTTOM-140, LEFT+260, BOTTOM-90, lambda: None)
 update_callback = None
 console_callback = None
 
