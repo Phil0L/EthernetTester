@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import contextlib
+import math
 import os
 with contextlib.redirect_stdout(None):
     import pygame
@@ -176,7 +177,7 @@ def _draw_rj45_connection(points_left, points_right, data: Data):
             array_index_end = value - 1 if value > 0 else 8
             end_point = points_right[array_index_end]
             is_correct = array_index_start == array_index_end
-            pygame.draw.line(screen, rj45[array_index_start] if is_correct else RED, start_point, end_point, line_width)
+            line(screen, rj45[array_index_start] if is_correct else RED, start_point, end_point, line_width)
 
 
 def _draw_rj45_mode(left, top, data: Data):
@@ -207,3 +208,22 @@ def _draw_right(data: Data):
     screen.blit(small_font.render(data.ip_data.ipv6, False, GREEN), (left, top+130))
     screen.blit(font.render("Speed:", False, WHITE), (left, top+170))
     screen.blit(small_font.render(data.ip_data.speed, False, GREEN), (left, top+195))
+
+
+def line(_screen, color: tuple, start, end, width):
+    if len(color) == 3:
+        pygame.draw.line(_screen, color, start, end, width)
+        return
+    color1 = color[0:2]
+    color2 = color[3:5]
+    step_length = 2 * width
+    length = math.sqrt((start[0]-end[0])**2 + (start[1]-end[1])**2)
+    steps = length/step_length
+    vector = (start[0]-end[0], start[0]-end[0])
+    vector_norm = (vector[0]/length, vector[1]/length)
+    for i in range(steps):
+        new_start = (start[0] + (i-1) * vector_norm[0], start[1] + (i-1) * vector_norm[1])
+        new_end = (start[0] + i * vector_norm[0], start[1] + i * vector_norm[1])
+        new_color = color1 if i % 2 == 0 else color2
+        pygame.draw.line(_screen, new_color, new_start, new_end, width)
+
