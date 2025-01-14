@@ -3,6 +3,8 @@ import copy
 import os
 import datetime
 import sys
+import time
+
 import cable
 import charge
 import display
@@ -28,6 +30,7 @@ def pre_update():
 def start(): # after update
     print("Started. Ctrl+C to quit.")
     current_data.version = VERSION
+    current_data.frame_start = time.time_ns()
     display.initialize()
     display.on_update_clicked(lambda: update.update())
     display.on_console_clicked(lambda: None)
@@ -36,6 +39,8 @@ def start(): # after update
 
 def loop():
     last_data = copy.deepcopy(current_data)
+    current_data.frame_start = time.time_ns()
+    current_data.frames_per_second = 1 / ((current_data.frame_start - last_data.frame_start) / 1e9)
     current_data.frame_count += 1
     current_data.charge_data.charge = charge.get_charge_percentage()
     current_data.charge_data.charging = charge.is_charging()

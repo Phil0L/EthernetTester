@@ -6,6 +6,8 @@ class Data:
     def __init__(self):
         self.version = ""
         self.frame_count = 0
+        self.frame_start = 0
+        self.frames_per_second = 0
         self.update_count = 0
         self.touch_data = _Touch()
         self.cable_data = _Cable()
@@ -19,6 +21,7 @@ class Data:
         if self.update_count != 0:
             out += f"\"update_count\": {self.update_count}, "
         out += f"\"frame_count\": {self.frame_count}, "
+        out += f"\"frames_per_second\": {self.frames_per_second}, "
         # To add: touch
         # To add: charge
         if self.ip_data.ipv4 != "":
