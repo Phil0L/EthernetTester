@@ -94,7 +94,9 @@ def test(data):
         current_output = []
         all_off()
         pass
-    current_pin = (frame // pin_test_length) % 9
+    new_pin = (frame // pin_test_length) % 9
+    if new_pin >= current_pin or current_pin == -1:
+        current_pin = new_pin
     if current_pin == 1:
         GPIO.output(OUT_1, True)
     if current_pin == 2:
