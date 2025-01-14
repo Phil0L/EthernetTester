@@ -25,7 +25,7 @@ def initialize():
 
 def check_touch(data: Data):
     global executor_touch
-    if executor_touch is None or not executor_touch.isAlive():
+    if executor_touch is None or not executor_touch.is_alive():
         executor_touch = threading.Thread(target=_check_touch, args=(data.touch_data,))
         executor_touch.start()
 

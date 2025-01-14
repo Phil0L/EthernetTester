@@ -50,7 +50,7 @@ def _status():
 
 def check_update(data: Data):
     global executor_update
-    if executor_update is None or not executor_update.isAlive():
+    if executor_update is None or not executor_update.is_alive():
         executor_update = threading.Thread(target=_check_update)
         executor_update.start()
     data.update_count = update_count
