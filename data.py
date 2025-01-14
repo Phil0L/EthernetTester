@@ -37,7 +37,7 @@ class Data:
         return out.replace("\n", "") + "}"
 
     def __hash__(self):
-        return hash((self.version, self.update_count, self.touch_data, self.charge_data, self.cable_data, self.ip_data))
+        return hash((self.version, self.update_count, hash(self.touch_data), hash(self.charge_data), hash(self.cable_data), hash(self.ip_data)))
 
     def __eq__(self, other):
         return hash(self) == hash(other)
