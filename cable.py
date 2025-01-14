@@ -38,7 +38,7 @@ GPIO.setup(IN_6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(IN_7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(IN_8, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(IN_S, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(IN_POE, GPIO.IN)
+GPIO.setup(IN_POE, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 GPIO.setup(OUT_1, GPIO.OUT)
 GPIO.setup(OUT_2, GPIO.OUT)
@@ -166,3 +166,7 @@ def _read(last):
         if GPIO.input(IN_8):
             last.append(8)
     return last
+
+
+def test_poe():
+    return GPIO.input(IN_POE)

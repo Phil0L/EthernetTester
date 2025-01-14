@@ -102,6 +102,7 @@ class _Ip:
         self.ipv6 = ""
         self.wlan = ""
         self.speed = ""
+        self.poe = False
 
     def __hash__(self):
         return hash((self.ipv4, self.ipv6, self.wlan, self.speed))

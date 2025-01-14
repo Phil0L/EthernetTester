@@ -14,7 +14,7 @@ import update
 from data import Data
 from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.13"
+VERSION = "0.2.14"
 KW_LOGFILE = "logfile"
 LOGFILE = "log.txt"
 current_data = Data()
@@ -50,6 +50,7 @@ def loop():
     current_data.ip_data.ipv6 = ethernet.get_ipv6_address()
     current_data.ip_data.wlan = ethernet.get_wifi_ipv4_address()
     current_data.ip_data.speed = ethernet.get_speed()
+    current_data.ip_data.poe = cable.test_poe()
     touch.check_touch(current_data)
     update.check_update(current_data)
     pin, read = cable.test(current_data)

@@ -209,6 +209,8 @@ def _draw_right(data: Data):
     screen.blit(small_font.render(data.ip_data.ipv6, False, GREEN), (left, top+130))
     screen.blit(font.render("Speed:", False, WHITE), (left, top+170))
     screen.blit(small_font.render(data.ip_data.speed, False, GREEN), (left, top+195))
+    screen.blit(font.render("PoE:", False, WHITE), (left, top + 235))
+    screen.blit(small_font.render("Good" if data.ip_data.poe else "", False, GREEN), (left, top + 260))
 
 
 def line(_screen, color: tuple, start, end, width):
