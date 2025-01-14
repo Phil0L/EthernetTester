@@ -161,7 +161,7 @@ def _draw_rj45(left, start_top, inverted, data: Data):
     line_left = left + 20 if not inverted else left - 40
     for top in range(start_top, start_top + 9 * 30, 30):
         index = (top - start_top) // 30
-        pygame.draw.line(screen, rj45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
+        line(screen, rj45[index], (line_left, top + 5), (line_left + line_start, top + 5), line_width)
         screen.blit(font.render(str(index + 1) if index < 8 else "S", False, GREEN if data.cable_data.pin == (index + 1) % 9 and not inverted else WHITE), (left, top))
         points.append((line_left + line_start, top + 5) if not inverted else (line_left, top + 5))
     return points
