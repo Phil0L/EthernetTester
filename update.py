@@ -27,7 +27,6 @@ def status():
 def update():
     print("Launching Updater...")
     code = subprocess.call(["python", f"{os.getcwd()}/updater.py"] + sys.argv)
-    print(code)
     if code == KW_UP_TO_DATE:
         return
     print("Restarting...")
@@ -59,4 +58,3 @@ def check_update(data: Data):
 def _check_update():
     global update_count
     update_count = status()
-    print(f"DEBUG update_count = {update_count}")
