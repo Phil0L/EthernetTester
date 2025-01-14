@@ -221,10 +221,9 @@ def line(_screen, color: tuple, start, end, width):
     steps = int(length/step_length)
     vector = (end[0]-start[0], end[1]-start[1])
     vector_norm = (vector[0]/steps, vector[1]/steps)
-    print(step_length, length, steps, vector, vector_norm)
     for i in range(steps):
-        new_start = (start[0] + (i-1) * vector_norm[0], start[1] + (i-1) * vector_norm[1])
-        new_end = (start[0] + i * vector_norm[0], start[1] + i * vector_norm[1])
+        new_start = (start[0] + i * vector_norm[0], start[1] + i * vector_norm[1])
+        new_end = (start[0] + (i+1) * vector_norm[0], start[1] + (i+1) * vector_norm[1])
         new_color = color1 if i % 2 == 0 else color2
         pygame.draw.line(_screen, new_color, new_start, new_end, width)
 
