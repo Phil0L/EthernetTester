@@ -12,7 +12,7 @@ KW_DO_UPDATE = "update"
 KW_UP_TO_DATE = 3
 GITHUB_BRANCH = "origin/main"
 
-executor: threading.Thread
+executor_update: threading.Thread
 update_count = 0
 
 
@@ -49,10 +49,10 @@ def _status():
 
 
 def check_update(data: Data):
-    global executor
-    if executor is None or not executor.isAlive():
-        executor = threading.Thread(target=_check_update())
-        executor.start()
+    global executor_update
+    if executor_update is None or not executor_update.isAlive():
+        executor_update = threading.Thread(target=_check_update())
+        executor_update.start()
     data.update_count = update_count
 
 
