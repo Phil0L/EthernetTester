@@ -30,8 +30,8 @@ font: Font
 small_font: Font
 console_area = TouchArea(RIGHT-195, TOP, RIGHT-100, TOP+30, lambda: _console_clicked())
 update_area = TouchArea(RIGHT-280, TOP, RIGHT-200, TOP+30, lambda: _update_clicked())
-t568a_area = TouchArea(LEFT+30, BOTTOM-50, LEFT+80, BOTTOM-30, lambda: None)
-t568b_area = TouchArea(LEFT+80, BOTTOM-50, LEFT+130, BOTTOM-30, lambda: None)
+t568a_area = TouchArea(LEFT+30, BOTTOM-100, LEFT+130, BOTTOM-50, lambda: None)
+t568b_area = TouchArea(LEFT+130, BOTTOM-100, LEFT+230, BOTTOM-50, lambda: None)
 update_callback = None
 console_callback = None
 
@@ -161,7 +161,7 @@ def _draw_rj45_mode(left, top, data: Data):
     # screen.fill(BLACK, t568b_area.to_rect().inflate(-2 * 2, -2 * 2))
     font.set_underline(True)
     screen.blit(font.render("T-568A", False, WHITE), (left + 5, top + 3))
-    screen.blit(font.render("T-568B", False, WHITE), (left + 55, top + 3))
+    screen.blit(font.render("T-568B", False, WHITE), (left + 105, top + 3))
     if t568a_area not in touch.touch_areas:
         touch.touch_areas.append(t568a_area)
     if t568b_area not in touch.touch_areas:
