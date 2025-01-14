@@ -126,7 +126,7 @@ def _draw_left(data: Data):
     points_left = _draw_rj45(left + 20, top + 50, False, data)
     points_right = _draw_rj45(left + 300, top + 50, True, data)
     _draw_rj45_connection(points_left, points_right, data)
-    _draw_rj45_mode(left + 20, BOTTOM-70, data)
+    _draw_rj45_mode(left + 100, BOTTOM-150, data)
 
 
 def _draw_rj45(left, start_top, inverted, data: Data):
