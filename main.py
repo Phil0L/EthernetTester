@@ -84,4 +84,4 @@ if __name__ == "__main__":
         os._exit(0)
     except:
         print("Application error occurred:", sys.exc_info()[0])
-        os._exit(1)
+        raise
