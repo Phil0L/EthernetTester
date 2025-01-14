@@ -7,11 +7,14 @@ from typing import Any
 import select
 from pygame import Rect
 
+from data import Data
+
 DISPLAY_TOUCH = "/dev/input/event0"
 
 touch: Any
 touch_areas = []
 stop_signal = False
+executor: threading.Thread
 
 
 def initialize():
@@ -20,7 +23,14 @@ def initialize():
     touch.grab()
 
 
-def check_touch(touch_data):
+def check_update(data: Data):
+    global executor
+    if executor is None or not executor.isAlive():
+        executor = threading.Thread(target=_check_touch(data.touch_data))
+        executor.start()
+
+
+def _check_touch(touch_data):
     try:
         _read, _write, _execute = select.select([touch], [], [])
         ev = touch.read_one()
