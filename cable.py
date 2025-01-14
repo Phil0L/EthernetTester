@@ -83,7 +83,7 @@ def test(data):
     global current_pin
     global current_output
     frame = data.frame_count
-    pin_test_length = data.frames_per_second
+    pin_test_length = int(data.frames_per_second)
     # test each pin for 6 frames, then wait 2 frames
     # measure each voltage at each frame
     if frame % pin_test_length < pin_test_length // 4:
