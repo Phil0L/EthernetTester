@@ -14,7 +14,7 @@ import update
 from data import Data
 from update import KW_DO_UPDATE, KW_NO_UPDATE_CHECK
 
-VERSION = "0.2.12"
+VERSION = "0.2.13"
 KW_LOGFILE = "logfile"
 LOGFILE = "log.txt"
 current_data = Data()

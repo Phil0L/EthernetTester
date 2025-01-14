@@ -24,8 +24,8 @@ RED = (220, 0, 0)
 ORANGE = (241, 130, 30)
 BLUE = (52, 77, 160)
 BROWN = (123, 84, 33)
-T568A = [(GREEN, WHITE), GREEN, WHITE, BLUE, WHITE, ORANGE, WHITE, BROWN, GRAY]
-T568B = [WHITE, ORANGE, WHITE, BLUE, WHITE, GREEN, WHITE, BROWN, GRAY]
+T568A = [(GREEN, WHITE), GREEN, (ORANGE, WHITE), BLUE, (BLUE, WHITE), ORANGE, (BROWN, WHITE), BROWN, GRAY]
+T568B = [(ORANGE, WHITE), ORANGE, (GREEN, WHITE), BLUE, (BLUE, WHITE), GREEN, (BROWN, WHITE), BROWN, GRAY]
 
 screen: Surface
 font: Font
@@ -226,4 +226,3 @@ def line(_screen, color: tuple, start, end, width):
         new_end = (start[0] + (i+1) * vector_norm[0], start[1] + (i+1) * vector_norm[1])
         new_color = color1 if i % 2 == 0 else color2
         pygame.draw.line(_screen, new_color, new_start, new_end, width)
-
