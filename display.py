@@ -30,10 +30,12 @@ font: Font
 small_font: Font
 console_area = TouchArea(RIGHT-195, TOP, RIGHT-100, TOP+30, lambda: _console_clicked())
 update_area = TouchArea(RIGHT-280, TOP, RIGHT-200, TOP+30, lambda: _update_clicked())
-t568a_area = TouchArea(LEFT+70, BOTTOM-130, LEFT+170, BOTTOM-80, lambda: None)
-t568b_area = TouchArea(LEFT+170, BOTTOM-130, LEFT+270, BOTTOM-80, lambda: None)
+t568a_area = TouchArea(LEFT+70, BOTTOM-130, LEFT+170, BOTTOM-80, lambda: _t568a_clicked())
+t568b_area = TouchArea(LEFT+170, BOTTOM-130, LEFT+270, BOTTOM-80, lambda: _t568b_clicked())
 update_callback = None
 console_callback = None
+t568a_callback = None
+t568b_callback = None
 
 
 def initialize():
@@ -76,6 +78,16 @@ def on_console_clicked(callback):
     console_callback = callback
 
 
+def on_t568a_clicked(callback):
+    global t568a_callback
+    t568a_callback = callback
+
+
+def on_t568b_clicked(callback):
+    global t568b_callback
+    t568b_callback = callback
+
+
 def _update_clicked():
     if callable(update_callback):
         update_callback()
@@ -84,6 +96,16 @@ def _update_clicked():
 def _console_clicked():
     if callable(console_callback):
         console_callback()
+
+
+def _t568a_clicked():
+    if callable(t568a_callback):
+        t568a_callback()
+
+
+def _t568b_clicked():
+    if callable(t568b_callback):
+        t568b_callback()
 
 
 def _draw_update(data: Data):
@@ -155,12 +177,13 @@ def _draw_rj45_connection(points_left, points_right, data: Data):
 
 
 def _draw_rj45_mode(left, top, data: Data):
-    screen.fill(GREEN, t568a_area.to_rect())
-    screen.fill(BLACK, t568a_area.to_rect().inflate(-2 * 2, -2 * 2))
-    screen.fill(RED, t568b_area.to_rect())
-    screen.fill(BLACK, t568b_area.to_rect().inflate(-2 * 2, -2 * 2))
-    font.set_underline(True)
+    # screen.fill(GREEN, t568a_area.to_rect())
+    # screen.fill(BLACK, t568a_area.to_rect().inflate(-2 * 2, -2 * 2))
+    # screen.fill(RED, t568b_area.to_rect())
+    # screen.fill(BLACK, t568b_area.to_rect().inflate(-2 * 2, -2 * 2))
+    font.set_underline(data.cable_data.mode == "A")
     screen.blit(font.render("T-568A", False, WHITE), (left + 5, top + 3))
+    font.set_underline(data.cable_data.mode == "B")
     screen.blit(font.render("T-568B", False, WHITE), (left + 95, top + 3))
     if t568a_area not in touch.touch_areas:
         touch.touch_areas.append(t568a_area)

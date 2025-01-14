@@ -64,17 +64,25 @@ class _Cable(dict[int, list[int]]):
     def __init__(self):
         super(_Cable, self).__init__()
         self.pin = -1
+        self.mode = "A"
 
     def __hash__(self):
         if self.is_empty():
             return 0
-        return hash(self.pin)
+        return hash((self.pin, self.mode))
 
     def is_empty(self):
         for key in self:
             if self[key]:
                 return False
         return True
+
+    def set_a(self):
+        self.mode = "A"
+
+    def set_b(self):
+        self.mode = "B"
+
 
 
 class _Charge:

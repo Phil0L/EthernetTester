@@ -34,6 +34,8 @@ def start(): # after update
     display.initialize()
     display.on_update_clicked(lambda: update.update())
     display.on_console_clicked(lambda: None)
+    display.on_t568a_clicked(lambda: current_data.cable_data.set_a())
+    display.on_t568b_clicked(lambda: current_data.cable_data.set_b())
     touch.initialize()
 
 
