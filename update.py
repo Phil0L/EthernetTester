@@ -12,7 +12,7 @@ KW_DO_UPDATE = "update"
 KW_UP_TO_DATE = 3
 GITHUB_BRANCH = "origin/main"
 
-executor_update: threading.Thread
+executor_update: threading.Thread or None = None
 update_count = 0
 
 
