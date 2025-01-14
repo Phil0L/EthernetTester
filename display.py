@@ -155,13 +155,13 @@ def _draw_rj45_connection(points_left, points_right, data: Data):
 
 
 def _draw_rj45_mode(left, top, data: Data):
-    # screen.fill(GREEN, t568a_area.to_rect())
-    # screen.fill(BLACK, t568a_area.to_rect().inflate(-2 * 2, -2 * 2))
-    # screen.fill(RED, t568b_area.to_rect())
-    # screen.fill(BLACK, t568b_area.to_rect().inflate(-2 * 2, -2 * 2))
+    screen.fill(GREEN, t568a_area.to_rect())
+    screen.fill(BLACK, t568a_area.to_rect().inflate(-2 * 2, -2 * 2))
+    screen.fill(RED, t568b_area.to_rect())
+    screen.fill(BLACK, t568b_area.to_rect().inflate(-2 * 2, -2 * 2))
     font.set_underline(True)
     screen.blit(font.render("T-568A", False, WHITE), (left + 5, top + 3))
-    screen.blit(font.render("T-568B", False, WHITE), (left + 105, top + 3))
+    screen.blit(font.render("T-568B", False, WHITE), (left + 95, top + 3))
     if t568a_area not in touch.touch_areas:
         touch.touch_areas.append(t568a_area)
     if t568b_area not in touch.touch_areas:
