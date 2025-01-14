@@ -48,7 +48,9 @@ def loop():
     current_data.ip_data.ipv6 = ethernet.get_ipv6_address()
     current_data.ip_data.wlan = ethernet.get_wifi_ipv4_address()
     current_data.ip_data.speed = ethernet.get_speed()
+    print("before touch")
     touch.check_touch(current_data.touch_data)
+    print("after touch")
     update.check_update(current_data)
     pin, read = cable.test(current_data.frame_count)
     current_data.cable_data[pin] = read
